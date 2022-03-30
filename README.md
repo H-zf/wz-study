@@ -6,3 +6,4 @@
 #### 3.moment(new Date(时间戳))
 #### 4. npm cache clean --force清除npm安装包缓存
 #### 5. 原生安卓，ios是可以和h5页面来进行通信的方法不一样
+#### 6. vant 下拉刷新上拉加载 不需要修改原组件样式，只需要给盒子添加overflow：auto就好了 
