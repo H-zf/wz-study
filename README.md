@@ -19,3 +19,4 @@
 #### 16. 组件化思想：逻辑复杂进行拆分，降低复杂度，可以重复使用，易于测试，松散耦合，不利于研发维护
 #### 17. pulicPath的定义是需要结合后台来进行配置的。定义好pulicPath访问资源的路径，然后我们后端肯定得将资源放在对应的路径文件夹上 不然就会访问不到
 #### 18. node安装包时，提示no permission时 我们可以对node存在的文件夹右键获取管理员权限即可
+#### 19. 安装react项目时应该首先全局安装 npm install -g create-react-app 出现报错提示tar的最新版本长时间没支持，则需要全局安装最新的tar npm install -g tar再来安装create-react-app
