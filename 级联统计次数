@@ -46,36 +46,36 @@ var Main = {
           }]
         }, {
           id:10,
-          value: 'zujian',
+          value: '10',
           label: '组件',
           children: [{
             id:11,
-            value: 'basic',
+            value: '11',
             label: 'Basic',
             children: [{
               id:12,
-              value: 'layout',
+              value: '12',
               label: 'Layout 布局'
             }, {
               id:13,
-              value: 'color',
+              value: '13',
               label: 'Color 色彩'
             }, {
               id:14,
-              value: 'typography',
+              value: '14',
               label: 'Typography 字体'
             }, {
               id:15,
-              value: 'icon',
+              value: '15',
               label: 'Icon 图标'
             }, {
               id:16,
-              value: 'button',
+              value: '16',
               label: 'Button 按钮'
             }]
           }, {
             id:17,
-            value: 'form',
+            value: '17',
             label: 'Form',
             children: [{
               id:18,
@@ -136,7 +136,7 @@ var Main = {
             }]
           }, {
             id:32,
-            value: 'data',
+            value: '32',
             label: 'Data',
             children: [{
               id:33,
@@ -165,99 +165,99 @@ var Main = {
             }]
           }, {
             id:39,
-            value: 'notice',
+            value: '39',
             label: 'Notice',
             children: [{
               id:40,
-              value: 'alert',
+              value: '40',
               label: 'Alert 警告'
             }, {
               id:41,
-              value: 'loading',
+              value: '41',
               label: 'Loading 加载'
             }, {
               id:42,
-              value: 'message',
+              value: '42',
               label: 'Message 消息提示'
             }, {
               id:43,
-              value: 'message-box',
+              value: '43',
               label: 'MessageBox 弹框'
             }, {
               id:44,
-              value: 'notification',
+              value: '44',
               label: 'Notification 通知'
             }]
           }, {
             id:45,
-            value: 'navigation',
+            value: '45',
             label: 'Navigation',
             children: [{
               id:46,
-              value: 'menu',
+              value: '46',
               label: 'NavMenu 导航菜单'
             }, {
               id:47,
-              value: 'tabs',
+              value: '47',
               label: 'Tabs 标签页'
             }, {
               id:48,
-              value: 'breadcrumb',
+              value: '48',
               label: 'Breadcrumb 面包屑'
             }, {
               id:49,
-              value: 'dropdown',
+              value: '49',
               label: 'Dropdown 下拉菜单'
             }, {
               id:50,
-              value: 'steps',
+              value: '50',
               label: 'Steps 步骤条'
             }]
           }, {
             id:51,
-            value: 'others',
+            value: '51',
             label: 'Others',
             children: [{
               id:52,
-              value: 'dialog',
+              value: '52',
               label: 'Dialog 对话框'
             }, {
               id:53,
-              value: 'tooltip',
+              value: '53',
               label: 'Tooltip 文字提示'
             }, {
               id:54,
-              value: 'popover',
+              value: '54',
               label: 'Popover 弹出框'
             }, {
               id:55,
-              value: 'card',
+              value: '55',
               label: 'Card 卡片'
             }, {
               id:56,
-              value: 'carousel',
+              value: '56',
               label: 'Carousel 走马灯'
             }, {
               id:57,
-              value: 'collapse',
+              value: '57',
               label: 'Collapse 折叠面板'
             }]
           }]
         }, {
           id:58,
-          value: 'ziyuan',
+          value: '58',
           label: '资源',
           children: [{
             id:59,
-            value: 'axure',
+            value: '59',
             label: 'Axure Components'
           }, {
             id:60,
-            value: 'sketch',
+            value: '60',
             label: 'Sketch Templates'
           }, {
             id:61,
-            value: 'jiaohu',
+            value: '61',
             label: '组件交互文档'
           }]
         }],
@@ -294,8 +294,6 @@ var Main = {
             id: 3,
             value: '3',
             label: '导航',
-            checkedNum:0,
-            num:2,
             children: [{
               id:4,
               value: '4',
@@ -308,36 +306,36 @@ var Main = {
           }]
         }, {
           id:10,
-          value: 'zujian',
+          value: '10',
           label: '组件',
           children: [{
             id:11,
-            value: 'basic',
+            value: '11',
             label: 'Basic',
             children: [{
               id:12,
-              value: 'layout',
+              value: '12',
               label: 'Layout 布局'
             }, {
               id:13,
-              value: 'color',
+              value: '13',
               label: 'Color 色彩'
             }, {
               id:14,
-              value: 'typography',
+              value: '14',
               label: 'Typography 字体'
             }, {
               id:15,
-              value: 'icon',
+              value: '15',
               label: 'Icon 图标'
             }, {
               id:16,
-              value: 'button',
+              value: '16',
               label: 'Button 按钮'
             }]
           }, {
             id:17,
-            value: 'form',
+            value: '17',
             label: 'Form',
             children: [{
               id:18,
@@ -398,7 +396,7 @@ var Main = {
             }]
           }, {
             id:32,
-            value: 'data',
+            value: '32',
             label: 'Data',
             children: [{
               id:33,
@@ -427,99 +425,99 @@ var Main = {
             }]
           }, {
             id:39,
-            value: 'notice',
+            value: '39',
             label: 'Notice',
             children: [{
               id:40,
-              value: 'alert',
+              value: '40',
               label: 'Alert 警告'
             }, {
               id:41,
-              value: 'loading',
+              value: '41',
               label: 'Loading 加载'
             }, {
               id:42,
-              value: 'message',
+              value: '42',
               label: 'Message 消息提示'
             }, {
               id:43,
-              value: 'message-box',
+              value: '43',
               label: 'MessageBox 弹框'
             }, {
               id:44,
-              value: 'notification',
+              value: '44',
               label: 'Notification 通知'
             }]
           }, {
             id:45,
-            value: 'navigation',
+            value: '45',
             label: 'Navigation',
             children: [{
               id:46,
-              value: 'menu',
+              value: '46',
               label: 'NavMenu 导航菜单'
             }, {
               id:47,
-              value: 'tabs',
+              value: '47',
               label: 'Tabs 标签页'
             }, {
               id:48,
-              value: 'breadcrumb',
+              value: '48',
               label: 'Breadcrumb 面包屑'
             }, {
               id:49,
-              value: 'dropdown',
+              value: '49',
               label: 'Dropdown 下拉菜单'
             }, {
               id:50,
-              value: 'steps',
+              value: '50',
               label: 'Steps 步骤条'
             }]
           }, {
             id:51,
-            value: 'others',
+            value: '51',
             label: 'Others',
             children: [{
               id:52,
-              value: 'dialog',
+              value: '52',
               label: 'Dialog 对话框'
             }, {
               id:53,
-              value: 'tooltip',
+              value: '53',
               label: 'Tooltip 文字提示'
             }, {
               id:54,
-              value: 'popover',
+              value: '54',
               label: 'Popover 弹出框'
             }, {
               id:55,
-              value: 'card',
+              value: '55',
               label: 'Card 卡片'
             }, {
               id:56,
-              value: 'carousel',
+              value: '56',
               label: 'Carousel 走马灯'
             }, {
               id:57,
-              value: 'collapse',
+              value: '57',
               label: 'Collapse 折叠面板'
             }]
           }]
         }, {
           id:58,
-          value: 'ziyuan',
+          value: '58',
           label: '资源',
           children: [{
             id:59,
-            value: 'axure',
+            value: '59',
             label: 'Axure Components'
           }, {
             id:60,
-            value: 'sketch',
+            value: '60',
             label: 'Sketch Templates'
           }, {
             id:61,
-            value: 'jiaohu',
+            value: '61',
             label: '组件交互文档'
           }]
         }]
@@ -533,6 +531,7 @@ var Main = {
       },
       handleSumCheckedNum(val) {
         // [[1,2,6],[1,2,7]]
+        console.log(val)
         let newOption = JSON.parse(JSON.stringify(this.saveOptions));
         let flatMap = val;
         flatMap.forEach((item, index) => {
