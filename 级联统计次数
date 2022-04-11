@@ -79,59 +79,59 @@ var Main = {
             label: 'Form',
             children: [{
               id:18,
-              value: 'radio',
+              value: '18',
               label: 'Radio 单选框'
             }, {
               id:19,
-              value: 'checkbox',
+              value: '19',
               label: 'Checkbox 多选框'
             }, {
               id:20,
-              value: 'input',
+              value: '20',
               label: 'Input 输入框'
             }, {
               id:21,
-              value: 'input-number',
+              value: '21',
               label: 'InputNumber 计数器'
             }, {
               id:22,
-              value: 'select',
+              value: '22',
               label: 'Select 选择器'
             }, {
               id:23,
-              value: 'cascader',
+              value: '23',
               label: 'Cascader 级联选择器'
             }, {
               id:24,
-              value: 'switch',
+              value: '24',
               label: 'Switch 开关'
             }, {
               id:25,
-              value: 'slider',
+              value: '25',
               label: 'Slider 滑块'
             }, {
               id:26,
-              value: 'time-picker',
+              value: '26',
               label: 'TimePicker 时间选择器'
             }, {
               id:27,
-              value: 'date-picker',
+              value: '27',
               label: 'DatePicker 日期选择器'
             }, {
               id:28,
-              value: 'datetime-picker',
+              value: '28',
               label: 'DateTimePicker 日期时间选择器'
             }, {
               id:29,
-              value: 'upload',
+              value: '29',
               label: 'Upload 上传'
             }, {
               id:30,
-              value: 'rate',
+              value: '30',
               label: 'Rate 评分'
             }, {
               id:31,
-              value: 'form',
+              value: '31',
               label: 'Form 表单'
             }]
           }, {
@@ -140,27 +140,27 @@ var Main = {
             label: 'Data',
             children: [{
               id:33,
-              value: 'table',
+              value: '33',
               label: 'Table 表格'
             }, {
               id:34,
-              value: 'tag',
+              value: '34',
               label: 'Tag 标签'
             }, {
               id:35,
-              value: 'progress',
+              value: '35',
               label: 'Progress 进度条'
             }, {
               id:36,
-              value: 'tree',
+              value: '36',
               label: 'Tree 树形控件'
             }, {
               id:37,
-              value: 'pagination',
+              value: '37',
               label: 'Pagination 分页'
             }, {
               id:38,
-              value: 'badge',
+              value: '38',
               label: 'Badge 标记'
             }]
           }, {
@@ -339,59 +339,59 @@ var Main = {
             label: 'Form',
             children: [{
               id:18,
-              value: 'radio',
+              value: '18',
               label: 'Radio 单选框'
             }, {
               id:19,
-              value: 'checkbox',
+              value: '19',
               label: 'Checkbox 多选框'
             }, {
               id:20,
-              value: 'input',
+              value: '20',
               label: 'Input 输入框'
             }, {
               id:21,
-              value: 'input-number',
+              value: '21',
               label: 'InputNumber 计数器'
             }, {
               id:22,
-              value: 'select',
+              value: '22',
               label: 'Select 选择器'
             }, {
               id:23,
-              value: 'cascader',
+              value: '23',
               label: 'Cascader 级联选择器'
             }, {
               id:24,
-              value: 'switch',
+              value: '24',
               label: 'Switch 开关'
             }, {
               id:25,
-              value: 'slider',
+              value: '25',
               label: 'Slider 滑块'
             }, {
               id:26,
-              value: 'time-picker',
+              value: '26',
               label: 'TimePicker 时间选择器'
             }, {
               id:27,
-              value: 'date-picker',
+              value: '27',
               label: 'DatePicker 日期选择器'
             }, {
               id:28,
-              value: 'datetime-picker',
+              value: '28',
               label: 'DateTimePicker 日期时间选择器'
             }, {
               id:29,
-              value: 'upload',
+              value: '29',
               label: 'Upload 上传'
             }, {
               id:30,
-              value: 'rate',
+              value: '30',
               label: 'Rate 评分'
             }, {
               id:31,
-              value: 'form',
+              value: '31',
               label: 'Form 表单'
             }]
           }, {
@@ -400,27 +400,27 @@ var Main = {
             label: 'Data',
             children: [{
               id:33,
-              value: 'table',
+              value: '33',
               label: 'Table 表格'
             }, {
               id:34,
-              value: 'tag',
+              value: '34',
               label: 'Tag 标签'
             }, {
               id:35,
-              value: 'progress',
+              value: '35',
               label: 'Progress 进度条'
             }, {
               id:36,
-              value: 'tree',
+              value: '36',
               label: 'Tree 树形控件'
             }, {
               id:37,
-              value: 'pagination',
+              value: '37',
               label: 'Pagination 分页'
             }, {
               id:38,
-              value: 'badge',
+              value: '38',
               label: 'Badge 标记'
             }]
           }, {
