@@ -1,0 +1,574 @@
+var Main = {
+    data() {
+      return {
+        saveOptions: [{
+          id:1,
+          value: '1',
+          label: '指南',
+          num:2,
+          checkedNum:0,
+          children: [{
+            id:2,
+            value: '2',
+            label: '设计原则',
+            num:4,
+            checkedNum:0,
+            children: [{
+              id:6,
+              value: '6',
+              label: '一致'
+            }, {
+              id:7,
+              value: '7',
+              label: '反馈'
+            }, {
+              id:8,
+              value: '8',
+              label: '效率'
+            }, {
+              id:9,
+              value: '9',
+              label: '可控'
+            }]
+          }, {
+            id: 3,
+            value: '3',
+            label: '导航',
+            children: [{
+              id:4,
+              value: '4',
+              label: '侧向导航'
+            }, {
+              id:5,
+              value: '5',
+              label: '顶部导航'
+            }]
+          }]
+        }, {
+          id:10,
+          value: 'zujian',
+          label: '组件',
+          children: [{
+            id:11,
+            value: 'basic',
+            label: 'Basic',
+            children: [{
+              id:12,
+              value: 'layout',
+              label: 'Layout 布局'
+            }, {
+              id:13,
+              value: 'color',
+              label: 'Color 色彩'
+            }, {
+              id:14,
+              value: 'typography',
+              label: 'Typography 字体'
+            }, {
+              id:15,
+              value: 'icon',
+              label: 'Icon 图标'
+            }, {
+              id:16,
+              value: 'button',
+              label: 'Button 按钮'
+            }]
+          }, {
+            id:17,
+            value: 'form',
+            label: 'Form',
+            children: [{
+              id:18,
+              value: 'radio',
+              label: 'Radio 单选框'
+            }, {
+              id:19,
+              value: 'checkbox',
+              label: 'Checkbox 多选框'
+            }, {
+              id:20,
+              value: 'input',
+              label: 'Input 输入框'
+            }, {
+              id:21,
+              value: 'input-number',
+              label: 'InputNumber 计数器'
+            }, {
+              id:22,
+              value: 'select',
+              label: 'Select 选择器'
+            }, {
+              id:23,
+              value: 'cascader',
+              label: 'Cascader 级联选择器'
+            }, {
+              id:24,
+              value: 'switch',
+              label: 'Switch 开关'
+            }, {
+              id:25,
+              value: 'slider',
+              label: 'Slider 滑块'
+            }, {
+              id:26,
+              value: 'time-picker',
+              label: 'TimePicker 时间选择器'
+            }, {
+              id:27,
+              value: 'date-picker',
+              label: 'DatePicker 日期选择器'
+            }, {
+              id:28,
+              value: 'datetime-picker',
+              label: 'DateTimePicker 日期时间选择器'
+            }, {
+              id:29,
+              value: 'upload',
+              label: 'Upload 上传'
+            }, {
+              id:30,
+              value: 'rate',
+              label: 'Rate 评分'
+            }, {
+              id:31,
+              value: 'form',
+              label: 'Form 表单'
+            }]
+          }, {
+            id:32,
+            value: 'data',
+            label: 'Data',
+            children: [{
+              id:33,
+              value: 'table',
+              label: 'Table 表格'
+            }, {
+              id:34,
+              value: 'tag',
+              label: 'Tag 标签'
+            }, {
+              id:35,
+              value: 'progress',
+              label: 'Progress 进度条'
+            }, {
+              id:36,
+              value: 'tree',
+              label: 'Tree 树形控件'
+            }, {
+              id:37,
+              value: 'pagination',
+              label: 'Pagination 分页'
+            }, {
+              id:38,
+              value: 'badge',
+              label: 'Badge 标记'
+            }]
+          }, {
+            id:39,
+            value: 'notice',
+            label: 'Notice',
+            children: [{
+              id:40,
+              value: 'alert',
+              label: 'Alert 警告'
+            }, {
+              id:41,
+              value: 'loading',
+              label: 'Loading 加载'
+            }, {
+              id:42,
+              value: 'message',
+              label: 'Message 消息提示'
+            }, {
+              id:43,
+              value: 'message-box',
+              label: 'MessageBox 弹框'
+            }, {
+              id:44,
+              value: 'notification',
+              label: 'Notification 通知'
+            }]
+          }, {
+            id:45,
+            value: 'navigation',
+            label: 'Navigation',
+            children: [{
+              id:46,
+              value: 'menu',
+              label: 'NavMenu 导航菜单'
+            }, {
+              id:47,
+              value: 'tabs',
+              label: 'Tabs 标签页'
+            }, {
+              id:48,
+              value: 'breadcrumb',
+              label: 'Breadcrumb 面包屑'
+            }, {
+              id:49,
+              value: 'dropdown',
+              label: 'Dropdown 下拉菜单'
+            }, {
+              id:50,
+              value: 'steps',
+              label: 'Steps 步骤条'
+            }]
+          }, {
+            id:51,
+            value: 'others',
+            label: 'Others',
+            children: [{
+              id:52,
+              value: 'dialog',
+              label: 'Dialog 对话框'
+            }, {
+              id:53,
+              value: 'tooltip',
+              label: 'Tooltip 文字提示'
+            }, {
+              id:54,
+              value: 'popover',
+              label: 'Popover 弹出框'
+            }, {
+              id:55,
+              value: 'card',
+              label: 'Card 卡片'
+            }, {
+              id:56,
+              value: 'carousel',
+              label: 'Carousel 走马灯'
+            }, {
+              id:57,
+              value: 'collapse',
+              label: 'Collapse 折叠面板'
+            }]
+          }]
+        }, {
+          id:58,
+          value: 'ziyuan',
+          label: '资源',
+          children: [{
+            id:59,
+            value: 'axure',
+            label: 'Axure Components'
+          }, {
+            id:60,
+            value: 'sketch',
+            label: 'Sketch Templates'
+          }, {
+            id:61,
+            value: 'jiaohu',
+            label: '组件交互文档'
+          }]
+        }],
+        options: [{
+          id:1,
+          value: '1',
+          label: '指南',
+          num:2,
+          checkedNum:0,
+          children: [{
+            id:2,
+            value: '2',
+            label: '设计原则',
+            num:4,
+            checkedNum:0,
+            children: [{
+              id:6,
+              value: '6',
+              label: '一致'
+            }, {
+              id:7,
+              value: '7',
+              label: '反馈'
+            }, {
+              id:8,
+              value: '8',
+              label: '效率'
+            }, {
+              id:9,
+              value: '9',
+              label: '可控'
+            }]
+          }, {
+            id: 3,
+            value: '3',
+            label: '导航',
+            checkedNum:0,
+            num:2,
+            children: [{
+              id:4,
+              value: '4',
+              label: '侧向导航'
+            }, {
+              id:5,
+              value: '5',
+              label: '顶部导航'
+            }]
+          }]
+        }, {
+          id:10,
+          value: 'zujian',
+          label: '组件',
+          children: [{
+            id:11,
+            value: 'basic',
+            label: 'Basic',
+            children: [{
+              id:12,
+              value: 'layout',
+              label: 'Layout 布局'
+            }, {
+              id:13,
+              value: 'color',
+              label: 'Color 色彩'
+            }, {
+              id:14,
+              value: 'typography',
+              label: 'Typography 字体'
+            }, {
+              id:15,
+              value: 'icon',
+              label: 'Icon 图标'
+            }, {
+              id:16,
+              value: 'button',
+              label: 'Button 按钮'
+            }]
+          }, {
+            id:17,
+            value: 'form',
+            label: 'Form',
+            children: [{
+              id:18,
+              value: 'radio',
+              label: 'Radio 单选框'
+            }, {
+              id:19,
+              value: 'checkbox',
+              label: 'Checkbox 多选框'
+            }, {
+              id:20,
+              value: 'input',
+              label: 'Input 输入框'
+            }, {
+              id:21,
+              value: 'input-number',
+              label: 'InputNumber 计数器'
+            }, {
+              id:22,
+              value: 'select',
+              label: 'Select 选择器'
+            }, {
+              id:23,
+              value: 'cascader',
+              label: 'Cascader 级联选择器'
+            }, {
+              id:24,
+              value: 'switch',
+              label: 'Switch 开关'
+            }, {
+              id:25,
+              value: 'slider',
+              label: 'Slider 滑块'
+            }, {
+              id:26,
+              value: 'time-picker',
+              label: 'TimePicker 时间选择器'
+            }, {
+              id:27,
+              value: 'date-picker',
+              label: 'DatePicker 日期选择器'
+            }, {
+              id:28,
+              value: 'datetime-picker',
+              label: 'DateTimePicker 日期时间选择器'
+            }, {
+              id:29,
+              value: 'upload',
+              label: 'Upload 上传'
+            }, {
+              id:30,
+              value: 'rate',
+              label: 'Rate 评分'
+            }, {
+              id:31,
+              value: 'form',
+              label: 'Form 表单'
+            }]
+          }, {
+            id:32,
+            value: 'data',
+            label: 'Data',
+            children: [{
+              id:33,
+              value: 'table',
+              label: 'Table 表格'
+            }, {
+              id:34,
+              value: 'tag',
+              label: 'Tag 标签'
+            }, {
+              id:35,
+              value: 'progress',
+              label: 'Progress 进度条'
+            }, {
+              id:36,
+              value: 'tree',
+              label: 'Tree 树形控件'
+            }, {
+              id:37,
+              value: 'pagination',
+              label: 'Pagination 分页'
+            }, {
+              id:38,
+              value: 'badge',
+              label: 'Badge 标记'
+            }]
+          }, {
+            id:39,
+            value: 'notice',
+            label: 'Notice',
+            children: [{
+              id:40,
+              value: 'alert',
+              label: 'Alert 警告'
+            }, {
+              id:41,
+              value: 'loading',
+              label: 'Loading 加载'
+            }, {
+              id:42,
+              value: 'message',
+              label: 'Message 消息提示'
+            }, {
+              id:43,
+              value: 'message-box',
+              label: 'MessageBox 弹框'
+            }, {
+              id:44,
+              value: 'notification',
+              label: 'Notification 通知'
+            }]
+          }, {
+            id:45,
+            value: 'navigation',
+            label: 'Navigation',
+            children: [{
+              id:46,
+              value: 'menu',
+              label: 'NavMenu 导航菜单'
+            }, {
+              id:47,
+              value: 'tabs',
+              label: 'Tabs 标签页'
+            }, {
+              id:48,
+              value: 'breadcrumb',
+              label: 'Breadcrumb 面包屑'
+            }, {
+              id:49,
+              value: 'dropdown',
+              label: 'Dropdown 下拉菜单'
+            }, {
+              id:50,
+              value: 'steps',
+              label: 'Steps 步骤条'
+            }]
+          }, {
+            id:51,
+            value: 'others',
+            label: 'Others',
+            children: [{
+              id:52,
+              value: 'dialog',
+              label: 'Dialog 对话框'
+            }, {
+              id:53,
+              value: 'tooltip',
+              label: 'Tooltip 文字提示'
+            }, {
+              id:54,
+              value: 'popover',
+              label: 'Popover 弹出框'
+            }, {
+              id:55,
+              value: 'card',
+              label: 'Card 卡片'
+            }, {
+              id:56,
+              value: 'carousel',
+              label: 'Carousel 走马灯'
+            }, {
+              id:57,
+              value: 'collapse',
+              label: 'Collapse 折叠面板'
+            }]
+          }]
+        }, {
+          id:58,
+          value: 'ziyuan',
+          label: '资源',
+          children: [{
+            id:59,
+            value: 'axure',
+            label: 'Axure Components'
+          }, {
+            id:60,
+            value: 'sketch',
+            label: 'Sketch Templates'
+          }, {
+            id:61,
+            value: 'jiaohu',
+            label: '组件交互文档'
+          }]
+        }]
+      };
+    },
+    methods:{
+      change(val) {
+        // 点击的时候只需要将value中的数据id进行变动就可以了
+        let newOptions = this.handleSumCheckedNum(val);
+        this.options = newOptions;
+      },
+      handleSumCheckedNum(val) {
+        // [[1,2,6],[1,2,7]]
+        let newOption = JSON.parse(JSON.stringify(this.saveOptions));
+        let flatMap = val;
+        flatMap.forEach((item, index) => {
+          let length1 = item.length;
+          let needComputedItem = item.filter((key,idx) => idx !== length1 -1);
+          this.computedNum(needComputedItem, newOption);
+        })
+        return newOption;
+      },
+      computedNum(checkArr, ccc){
+         let needForEachArr = checkArr;
+         let foreachLength = needForEachArr.length;
+         let firstLevel = 0;
+        
+         while(foreachLength > 0){
+          let id = needForEachArr.pop();
+          foreachLength = needForEachArr.length;
+          if(firstLevel === 0) this.handleDigui(id, ccc);
+          firstLevel ++
+         }
+      },
+      handleDigui(cid, ddd){
+        ddd.forEach(item => {
+          let { id, children } = item;
+          if(cid == id){
+            if(!item.checkedNum){
+              item.checkedNum = 0
+            }
+            item.checkedNum ++;
+          }
+          if(children && children.length){
+            this.handleDigui(cid, children)
+          }
+        })
+      }
+    }
+  };
+var Ctor = Vue.extend(Main)
+new Ctor().$mount('#app')
