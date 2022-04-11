@@ -1,3 +1,17 @@
+<template>
+    <el-cascader
+        placeholder="试试搜索：指南"
+        @change="change"
+        :options="options"
+        :props="{ multiple: true }"
+        filterable>
+        <template slot-scope="{ node, data }">
+          <span>{{ data.label}} </span>
+              <span v-if="!node.isLeaf"> ({{ data.children.length }} \ {{ data.checkedChillrenIds && data.checkedChillrenIds.length || 0 }})       </span>
+        </template>
+    </el-cascader>
+</template>
+
 var Main = {
     data() {
       return {
