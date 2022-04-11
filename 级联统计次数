@@ -531,12 +531,11 @@ var Main = {
       },
       handleSumCheckedNum(val) {
         // [[1,2,6],[1,2,7]]
-        console.log(val)
         let newOption = JSON.parse(JSON.stringify(this.saveOptions));
         let flatMap = val;
         flatMap.forEach((item, index) => {
           let length1 = item.length;
-          let needComputedItem = item.filter((key,idx) => idx !== length1 -1);
+          let needComputedItem = item.filter((key,idx) => idx !== 99);
           this.computedNum(needComputedItem, newOption);
         })
         return newOption;
@@ -549,21 +548,49 @@ var Main = {
          while(foreachLength > 0){
           let id = needForEachArr.pop();
           foreachLength = needForEachArr.length;
-          if(firstLevel === 0) this.handleDigui(id, ccc);
+          this.handleDigui(id, ccc, firstLevel);
           firstLevel ++
          }
       },
-      handleDigui(cid, ddd){
+      handleDigui(cid, ddd, firstLevel){
         ddd.forEach(item => {
-          let { id, children } = item;
-          if(cid == id){
-            if(!item.checkedNum){
-              item.checkedNum = 0
+          let { children, id } = item;
+          if(firstLevel === 0){
+            if(children && children.length){
+              let childrenIds = children.map(item => `${item.id}`)
+              if(childrenIds.includes(String(cid))){
+                if(!item.checkedChillrenIds) {
+                  item.checkedChillrenIds = [];
+                }
+                if(!item.checkedChillrenIds.includes(cid)){
+                   item.checkedChillrenIds.push(cid);
+                }
+              }
             }
-            item.checkedNum ++;
+          }
+          
+           if(firstLevel > 1){
+              // 看chidlren中ids数与children数是不是相等  相等则添加子元素id到checkedChillrenIds
+              const sumCheckedAll = children && children.length && children.map((key) => {
+              const { checkedChillrenIds=[], children=[] } = key
+              if(children.length === 0){
+                return false
+              }
+              if(checkedChillrenIds.length === 0){
+                return false
+              }
+              if(checkedChillrenIds.length === children.length){
+                return key.id
+              } 
+            }).filter(k => !!k);
+             if(!sumCheckedAll.length) return;
+            if(!item.checkedChillrenIds){
+              item.checkedChillrenIds = []
+            }
+             item.checkedChillrenIds = [...sumCheckedAll];
           }
           if(children && children.length){
-            this.handleDigui(cid, children)
+            this.handleDigui(cid, children, firstLevel)
           }
         })
       }
