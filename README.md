@@ -24,7 +24,16 @@
 #### 21. 项目中引入react-router https://www.ruanyifeng.com/blog/2016/05/react_router.html
 #### 22. 在v-html中判断点击的节点可以给class来或者id然后添加点击事件，在事件源参数中来判断e.target,给富文本的dom元素添加点击事件可以在useEffect以获取dom元素的方式添加点击事件，vue中在mounted中添加click
 #### 23. 在滚动中判断某些div是否显示还是隐藏，可以添加scroll事件，然后判断scrolltop和clientHeight的大小对比 大于多少来设置一个变量，然后来控制显示隐藏
-
+#### 24. 判断当前滚动的元素是否在当前页面可视区域中 
+  let scrollItems = document.querySelectorAll('.scroll-item')
+      for (let i = scrollItems.length - 1; i >= 0; i--) {
+        // 判断滚动条滚动距离是否大于当前滚动项可滚动距离
+        let judge = wrapRef.current.scrollTop >= scrollItems[i].offsetTop - document.querySelector('.tabwrap')?.offsetHeight - 10
+        if (judge) {
+          tabRef.current._childFn(i);
+          break
+        }
+      }
 
 
 
