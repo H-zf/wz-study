@@ -34,7 +34,7 @@
           break
         }
       }
-
+#### 25. 很多时候的滚动都是使用的是setinterval 移动scrollTop的值
 
 
 
