@@ -23,6 +23,7 @@
 #### 20. 安装create-react-app时如果报错说“无法将“create-react-app”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。”，打开cmd 输入create-react-app --version 看看是否安装成功， 如果成功则打开powershell中来执行create-react-app --version来查看版本， 如果查询不到版本， 此时可以先window+X打开powershell 来执行命令 命令如下：set-ExecutionPolicy RemoteSigned 回复Y即可 如果powershell与vscode终端指令不同步可以尝试将vscode全部关闭再重新打开试试（获得权限很重要）create-react-app my-app --template typescript可以生成一个自带ts的项目
 #### 21. 项目中引入react-router https://www.ruanyifeng.com/blog/2016/05/react_router.html
 #### 22. 在v-html中判断点击的节点可以给class来或者id然后添加点击事件，在事件源参数中来判断e.target,给富文本的dom元素添加点击事件可以在useEffect以获取dom元素的方式添加点击事件，vue中在mounted中添加click
+#### 23. 在滚动中判断某些div是否显示还是隐藏，可以添加scroll事件，然后判断scrolltop和clientHeight的大小对比 大于多少来设置一个变量，然后来控制显示隐藏
 
 
 
