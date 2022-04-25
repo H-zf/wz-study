@@ -50,3 +50,4 @@
 #### 38. 一个项目引入另一个项目class一样会有样式冲突
 #### 39. sessionStorage 存的值是undifine的时候 会返回一个字符串的undifine 在判断的时候需要注意一下
 #### 40. react中可能在取值的时候取不到最新的值，可以使用useRef来存数据就ok了
+#### 41. react hooks中也可以使用react.component来定义组件，使用生命周期函数来进行操作
