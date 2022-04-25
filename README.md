@@ -48,4 +48,4 @@
 #### 36. nuxt中间件就类似于一个拦截器，所有操作都会先进入到这个拦截器中来进行过滤一遍
 #### 37. dva 中定义的数据model得定义在pages中才能生效
 #### 38. 一个项目引入另一个项目class一样会有样式冲突
-#### sessionStorage 存的值是undifine的时候 会返回一个字符串的undifine 在判断的时候需要注意一下
+#### 39. sessionStorage 存的值是undifine的时候 会返回一个字符串的undifine 在判断的时候需要注意一下
