@@ -69,25 +69,26 @@
 #### 44. vue组件封装好之后要暴露一个install的方法，并接受一个VUE的参数，来调用vue.components来注册全局组件
 #### 45. document.scrollingElement找到的是滚动的元素，设置scrolltop就可以进行滚动
 #### 46. 弹出层禁止后面的元素滚动
-if (showCapitalRetention) {
+
+    if (showCapitalRetention) {
  
-    let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
       
-    document.body.style.cssText += 'position:fixed;width:100%;top:-' + scrollTop + 'px';
+        document.body.style.cssText += 'position:fixed;width:100%;top:-' + scrollTop + 'px';
       
-} else {
+    } else {
     
-    let body = document.body;
+        let body = document.body;
       
-    body.style.position = '';
+        body.style.position = '';
       
-    let top = body.style.top;
+        let top = body.style.top;
       
-    document.body.scrollTop = document.documentElement.scrollTop = -parseInt(top);
+        document.body.scrollTop = document.documentElement.scrollTop = -parseInt(top);
       
-    body.style.top = '';
+        body.style.top = '';
       
-}
+    }
 
 
 
