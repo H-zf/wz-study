@@ -8,6 +8,28 @@ vue // 无缝滚动 上下
         </li>
     </ul>
 </div>
+// 数据中需要将数据第一项进行复制一份到最后面
+data() {
+    return {
+        companyList: ['1111111111111111111111111111111111111','222222222222222222222222222222','333333333333333333333333333',
+            '444444444444444444444444444444444','555555555555555555555555', '1111111111111111111111111111111111111'],
+    }
+}
+script
+autoPlay() {
+    this.timeId = setInterval(() => {
+        this.setIndex();
+    }, 2000);
+},
+setIndex() {
+    this.toggleIndex ++;
+    if(this.toggleIndex === this.tags.length) {
+        setTimeout(() => {
+            this.toggleIndex = 1;
+        }, 0)
+    }
+},
+
 .rotation {
     height: 20px;
     overflow: hidden;
