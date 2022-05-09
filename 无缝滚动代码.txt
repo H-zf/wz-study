@@ -1,0 +1,57 @@
+vue // 无缝滚动 上下
+<div class="rotation">
+    <ul class="inner">
+        <li class="rotation-item" v-for="(item, index) in tags" :key="item + '1'" >
+            <transition>
+                <div class="item" v-if="toggleIndex === index">{{ item }}</div>
+            </transition>
+        </li>
+    </ul>
+</div>
+.rotation {
+    height: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    .rotation-item {
+        width: 248px;
+        height: 20px;
+        font-family: PingFangSC-Medium;
+        font-size: 14px;
+        color: #292A2D;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+.item {
+        position: absolute;
+        top: 0;
+        left: 0px;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .inner {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+    }
+    .v-enter-active,
+    .v-leave-active {
+        transition: all 0.5s linear;
+    }
+    .v-enter-active {
+        transform: translateY(100%);
+    }
+    .v-enter-to {
+        transform: translateY(0);
+    }
+    .v-leave-active {
+        transform: translateY(0);
+    }
+    .v-leave-to {
+        transform: translateY(-100%);
+    }
