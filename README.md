@@ -88,6 +88,25 @@
 #### 52. 在抽屉需要展开动画的时候可以动态改变height并结合css transition来处理
 #### 53. react 18中安装 scss 直接下载node-sass@npm:dart-sass 将css文件改成scss文件即可
 
+#### ref可以设置回调函数，ref属性可以设置为一个回调函数，这也是官方强烈推荐的用法；这个函数执行的时机为：组件被挂载后，回调函数被立即执行，回调函数的参数为该组件的具体实例。
+
+
+const [show, setShow] = useState<boolean>(false);
+
+const appref = (html: any) => {
+  if(!html) return;
+  let { offsetWidth, scrollWidth } = html;
+  setShow(scrollWidth > offsetWidth);
+};
+  
+useEffect(() => {
+  console.log('useEffect');
+}, [])
+  
+return <div>
+  <div ref={ appref } className='tooltips'>2345678909876534567890987654345678876543234567895dsahdgsgadjashdghasjdgasdhjhdgfasjd</div>
+  {show && <div>show</div> || <div>noshow</div>}
+</div>
 
 
 
