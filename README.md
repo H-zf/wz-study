@@ -104,7 +104,7 @@
  }, [])
   
  return <div>
-  <div ref={ appref } className='tooltips'>2345678909876534567890987654345678876543234567895dsahdgsgadjashdghasjdgasdhjhdgfasjd</div>
+  <div ref={ appref } className='tooltips'>2345678909876534567890987654345678876543234sdhjhdgfasjd</div>
   {show && <div>show</div> || <div>noshow</div>}
  </div>
 ``` 
