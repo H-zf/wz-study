@@ -93,21 +93,21 @@
 
 ``` const [show, setShow] = useState<boolean>(false);
 
-``` const appref = (html: any) => {
-```  if(!html) return;
-```  let { offsetWidth, scrollWidth } = html;
-```  setShow(scrollWidth > offsetWidth);
-``` };
+ const appref = (html: any) => {
+  if(!html) return;
+  let { offsetWidth, scrollWidth } = html;
+  setShow(scrollWidth > offsetWidth);
+ };
   
-``` useEffect(() => {
-```  console.log('useEffect');
-``` }, [])
+ useEffect(() => {
+  console.log('useEffect');
+ }, [])
   
-``` return <div>
-```  <div ref={ appref } className='tooltips'>2345678909876534567890987654345678876543234567895dsahdgsgadjashdghasjdgasdhjhdgfasjd</div>
-```  {show && <div>show</div> || <div>noshow</div>}
-``` </div>
-
+ return <div>
+  <div ref={ appref } className='tooltips'>2345678909876534567890987654345678876543234567895dsahdgsgadjashdghasjdgasdhjhdgfasjd</div>
+  {show && <div>show</div> || <div>noshow</div>}
+ </div>
+``` 
 
 
 
