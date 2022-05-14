@@ -108,6 +108,7 @@
   {show && <div>show</div> || <div>noshow</div>}
  </div>
 ``` 
+#### 55. react给组件添加ref时，需要给组件使用React.forwardRef(HeaderComponent)包裹组件
 
 
 
