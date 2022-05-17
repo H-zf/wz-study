@@ -1,0 +1,6 @@
+document.onvisibilitychange = () => {
+    clearInterval(timeId);
+    if(document.visibilityState === 'visible'){
+        this.handleLeavePlay();
+    }
+}
