@@ -109,7 +109,13 @@
  </div>
 ``` 
 #### 55. react给组件添加ref时，需要给组件使用React.forwardRef(HeaderComponent)包裹组件
-
+#### 56. 浏览器页签切换时，页面中的定时器加速。重影问题
+```document.onvisibilitychange = () => {
+    clearInterval(timeId);
+    if(document.visibilityState === 'visible'){
+        this.handleLeavePlay();
+    }
+```}
 
 
 
