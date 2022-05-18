@@ -118,8 +118,34 @@ document.onvisibilitychange = () => {
     }
 }
 ```
-
-
+#### 57. 移入显示tooltip改版
+```
+<el-tooltip class="item" :popper-class="closeTooltip ? 'entranceTitle-pop' : 'entranceTitle-pop hidden'" effect="dark" placement="top">
+    <div slot="content">
+        {{ item.companyName }}
+    </div>
+    <div 
+        class="item" 
+        @mouseenter="handleEnterPurse" 
+        @mouseleave="handleLeavePlay" 
+        >{{ item.companyName }}</div>
+</el-tooltip>
+// script
+ handleEnterPurse(e) {
+    if(e.target.offsetWidth < e.target.scrollWidth){
+        this.closeTooltip = true;
+    } else {
+        this.closeTooltip = false;
+    }
+},
+handleLeavePlay() {
+    this.closeTooltip = false;
+}
+// style
+.el-tooltip__popper.entranceTitle-pop.hidden {
+    display: none;
+}
+```
 
 
 
