@@ -31,3 +31,5 @@ const { username } = useContext(ThemeContext);
 
 hooks中在数据变化的时候会重新刷新界面数据，
 class 组件中会会执行componentWillReceiveProps====componentWillUpdate====render====foocomponentDidUpdate 所以在render中将context中将值取出最为适合
+
+TS中 class组件在声明变量的时候需要定义变量类型 不然默认readonly不可读取会报错 由上文一样定义即可
