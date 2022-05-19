@@ -146,7 +146,25 @@ handleLeavePlay() {
     display: none;
 }
 ```
+#### 58. context的应用 需要使用的时候需要将context文件引入到需要使用的文件中
+```
+ // app.tsx
+  <ThemeContext.Provider value={ contextValue }>
+      <div onClick={ handleChangeVlaue }>点击我改变contextValue</div>
+      <Header ref={appref} name="namenamenamename"></Header>
+      <Footer></Footer>
+    </ThemeContext.Provider>
+```
 
+```
+// context
+import React from 'react';
+const ThemeContext = React.createContext({
+  username: '',
+  messageDetail: '',
+});
+export default ThemeContext 
+```
 
 
 
