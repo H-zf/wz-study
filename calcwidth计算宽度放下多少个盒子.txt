@@ -1,0 +1,102 @@
+textArr: [
+        {
+          text: '维正'
+        },
+        {
+          text: '国知'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '维正'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '维正'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '维正'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '友情'
+        },
+        {
+          text: '友情'
+        },
+      ],
+calcFontWidth(text){
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')
+      context.font = "12px PingFangSC-Regular"
+      const elem = context.measureText(text)
+      return elem.width;
+    },
+handleArr(needRenderArr, cishu, indexStep) {
+  let moreWidth = this.calcFontWidth('查看更多');
+  let onelineWidth = 300;
+  let step = 12;
+  let index = indexStep;
+  let calcWidth = cishu === 1 ? 0 : moreWidth;
+  while(calcWidth < onelineWidth && index < this.textArr.length) {
+    let currentText = this.textArr[index].text;
+    calcWidth += this.calcFontWidth(currentText) + step;
+    if(calcWidth <= onelineWidth) {
+      needRenderArr.push({
+        ...this.textArr[index],
+        noMargin: false
+      });
+    }
+    if(calcWidth > onelineWidth && cishu === 1) {
+      let c = calcWidth;
+      if(c - 12 <= onelineWidth){
+        needRenderArr.push({
+          ...this.textArr[index],
+          noMargin: true
+        });
+      }
+    }
+    index ++
+  }
+},
+sumcalc() {
+  let needRenderArr = []; //可以将数据的length作为长度作为初始值
+  let lineHang = 1;
+  while(lineHang <= 2) {
+    this.handleArr(needRenderArr, lineHang, needRenderArr.length);
+    lineHang ++ ;
+  }
+
+  return needRenderArr;
+}
+
+样式需要父元素设置font-size: 0;会有样式问题
