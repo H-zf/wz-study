@@ -59,7 +59,7 @@ calcFontWidth(text){
       const context = canvas.getContext('2d')
       context.font = "12px PingFangSC-Regular"
       const elem = context.measureText(text)
-      return elem.width;
+      return elem.width && Math.ceil(elem.width);
     },
 handleArr(needRenderArr, cishu, indexStep) {
   let moreWidth = this.calcFontWidth('查看更多');
