@@ -1,0 +1,36 @@
+git在合并代码的时候回退代码
+1. 首先查看自己要回退的commitid
+  git log 命令查看commit记录  结合gitlab上提交的记录来选择你需要回退的id
+  当前错误commit提交的下一个commitid才是要回退的正确id 最新的commit会在log中排最前面
+2. git reset --hard f2fca5dba47e5d3a80a103af349687e8e429c594
+  这样就将自己的代码进行了回退将代码进行回退
+3. git push -f 
+  将回退后的代码强制推到远程进行同步
+  
+发现自己本地来拉去远程已经更新代码没有同步的时候，需要强制同步需要的操作如下
+1. git fetch --all
+2. git reset --hard origin/master 这个是自己当前需要强制同步的分支名称
+3. git pull 
+
+本地解决冲突就需要切换到需要合入到的分支  例如：dev 合到 test
+1. 本地先切到test分支 git checkout test
+2. 更新远程的test分支 git pull
+3. git merge branchbname    branchbname就是需要被合并的分支 这里就是dev分支
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
