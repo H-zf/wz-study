@@ -190,7 +190,7 @@ export default ThemeContext
 #### 65. Eslint的学习与使用
 ```https://baijiahao.baidu.com/s?id=1713737414231260655&wfr=spider&for=pc
   vscode中存在eslint插件，npm中存在eslint包。两者有什么区别？
-  vscode中的eslint是格式化做些处理。npm包中eslint是报错就不运行代码了 是有限制作用的 vscode中的插件就不会
+  vscode中的eslint方便你直接看到错误。顺便会帮你修复简单的错误。npm包中eslint报错了会停止编译，直到你修复
 ```
 
 
