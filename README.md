@@ -181,8 +181,11 @@ export default ThemeContext
   4. 使用 css modules
   5. 使用 css in js
   
-  postcss 做了哪些工作 stylelint支持less和scss 给样式做一个校验的工作
-  插件： autoprefixer 自动添加兼容样式
+  postcss 做了哪些工作 stylelint支持less和scss，给样式做一个校验的工作
+  postcss-pxtorem 也依赖postcss的parse
+  插件： 1. autoprefixer 自动添加兼容样式
+         2. StyleLint 给样式做一个检验的工作
+         3. cssnano 给样式做一个优化的功能
 ```
 
 
