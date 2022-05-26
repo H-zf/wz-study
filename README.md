@@ -196,6 +196,7 @@ export default ThemeContext
   
   项目.vscode文件夹下setting.json文件设置之后优先级会高于vscode设置中的setting.json
    .eslintrc.js 不仅作用于 vscode 中 eslint 插件，还作用与 eslint-loader。
+   .prettierrc 配置文件会影响 vscode 的 prettier 插件，且优先级高于在 vscode settings.json 中的 prettier 插件配置
 ```
 
 
