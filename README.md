@@ -193,6 +193,8 @@ export default ThemeContext
   vscode中存在eslint插件，npm中存在eslint包。两者有什么区别？
   vscode中的eslint方便你直接看到错误。顺便会帮你修复简单的错误。npm包中eslint报错了会停止webpack编译，直到你修复
   vscode的中的插件是做一些规范，不会对你的程序有影响
+  
+  项目.vscode文件夹下setting.json文件设置之后优先级会高于vscode设置中的setting.json
 ```
 
 
