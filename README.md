@@ -195,6 +195,7 @@ export default ThemeContext
   vscode的中的插件是做一些规范，不会对你的程序有影响
   
   项目.vscode文件夹下setting.json文件设置之后优先级会高于vscode设置中的setting.json
+   .eslintrc.js 不仅作用于 vscode 中 eslint 插件，还作用与 eslint-loader。
 ```
 
 
