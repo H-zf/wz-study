@@ -188,7 +188,10 @@ export default ThemeContext
          3. cssnano 给样式做一个优化的功能
 ```
 #### 65. Eslint的学习与使用
-```https://baijiahao.baidu.com/s?id=1713737414231260655&wfr=spider&for=pc```
+```https://baijiahao.baidu.com/s?id=1713737414231260655&wfr=spider&for=pc
+  vscode中存在eslint插件，npm中存在eslint包。两者有什么区别？
+  vscode中的eslint是格式化做些处理。npm包中eslint是报错就不运行代码了 是有限制作用的 vscode中的插件就不会
+```
 
 
 
