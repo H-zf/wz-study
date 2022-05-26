@@ -180,6 +180,9 @@ export default ThemeContext
   3. 使用后处理器 PostCSS
   4. 使用 css modules
   5. 使用 css in js
+  
+  postcss 做了哪些工作 stylelint支持less和scss 给样式做一个校验的工作
+  插件： autoprefixer 自动添加兼容样式
 ```
 
 
