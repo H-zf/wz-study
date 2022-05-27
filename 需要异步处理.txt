@@ -1,0 +1,25 @@
+// 请求接口数据
+    function onlineService() {
+        return new Promise((resolve, reject) => {
+            dispatch({
+                type: 'articleDetial/getResDetail',
+                payload: {
+                    resolve,
+                    reject,
+                    resourceId,
+                    isPreview,
+                },
+            });
+        });
+    };
+    function rescall(promised) {
+        promised.then((res) => {
+            console.log('res====', res);
+        });
+    };
+    useEffect(() => {
+        let promise = onlineService();
+        if (promise) {
+            rescall(promise);
+        }
+    }, []);
