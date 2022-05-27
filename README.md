@@ -198,6 +198,7 @@ export default ThemeContext
    .eslintrc.js 不仅作用于 vscode 中 eslint 插件，还作用与 eslint-loader。
    .prettierrc 配置文件会影响 vscode 的 prettier 插件，且优先级高于在 vscode settings.json 中的 prettier 插件配置
 ```
+#### nuxt seo处理分页时，都是使用的a标签，然后使用location.href = '' 地址链接然后拼接page=1, page=2来进行实现
 
 
 
