@@ -200,6 +200,21 @@ export default ThemeContext
 ```
 #### 66. nuxt seo处理分页时，都是使用的a标签，然后使用location.href = '' 地址链接然后拼接page=1, page=2来进行实现
 #### 67. css word-break: normal;按照浏览器的默认换行，标点符号不能分开换行
+#### 68. 判断某个元素是否在可视区域中 然后设置另外一个元素的显示隐藏
+```
+  let ele = document.querySelector('.expert-audit');
+  if(!ele)return;
+  let bottomSuctionEle = document.querySelector('.bottom-suction');
+  let bottomSuctionEleHeight = bottomSuctionEle && bottomSuctionEle.offsetHeight || 0;
+  let headerLinkHeight = isApp() ? 0 : 53;
+  let clientHeight = document.documentElement.clientHeight;
+  let { bottom, top } = ele.getBoundingClientRect();
+  if(bottom > headerLinkHeight && top < clientHeight - bottomSuctionEleHeight){
+      handleBottomSuction(false);
+  } else {
+      handleBottomSuction(true);
+  }
+```
 
 
 
