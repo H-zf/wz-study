@@ -215,7 +215,15 @@ export default ThemeContext
       handleBottomSuction(true);
   }
 ```
-
+#### 68. react实时获取dom height做处理
+```
+const contentRef = (html) => {
+    if (!html) return;
+    let { scrollHeight } = html;
+    html.firstChild.style.textIndent = '24px';
+    handleShowMoreIcon(scrollHeight > 342);
+};
+```
 
 
 
