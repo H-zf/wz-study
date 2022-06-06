@@ -26,4 +26,5 @@ imageSuccessCBK(arr) {
   })
 }
 // tinymceId是初始化tinymce的textArea组件id
+// insertContent是在光标前添加插入的内容
 
