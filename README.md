@@ -226,7 +226,7 @@ const contentRef = (html) => {
 ```
 #### 69. 动态加载div内容使用innerHTML 和 dangerouslySetInnerHTML __html 动态加载时，如果数据中存在图片的时候，如果图片比较大，加载的比较慢，则获取的height就不准确，展开和收起就不准确
 #### 70. 移动端与pc端实现互相跳转的逻辑，在移动端中做pc的跳转，在pc端实现移动端的跳转，要判断useAgent是pc还是移动端
-
+#### 71. 上传文件的时候是可以使用filereader来读取图片的宽高的，使用promise来做处理，再上传到服务器
 
 
 
