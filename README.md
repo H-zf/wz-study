@@ -236,6 +236,7 @@ const contentRef = (html) => {
   transform: scale(0.5);
   transform-origin: 0;
 ```
+#### 73. 原生与h5同步，h5点击之后给原生，原生修改之后调用h5传过去的回调，进行同步
 
 
 
