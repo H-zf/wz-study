@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-06-11 16:09:48
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-06-13 16:32:32
+ * @LastEditTime: 2022-06-13 16:44:55
  * @FilePath: \qzd-web-service\src\views\innovationFundMgr\marketingConfiguration\DetailMarketingConfiguration.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -209,8 +209,8 @@
               <el-table-column prop="marketingMethod" label="营销方式">
                 <template slot-scope="{ row, $index }">
                   <el-form-item
-                    :prop="'tableList.' + $index + '.marketingMethod'"
-                    :rules="formData.goodsRule.marketingMethod"
+                    :prop="'goodsRule.tableList.' + $index + '.marketingMethod'"
+                    :rules="marketingRules.goodsRule.marketingMethod"
                   >
                     <el-input
                       v-model="row.marketingMethod"
@@ -223,8 +223,10 @@
               <el-table-column prop="thresholdCondition" label="门槛条件">
                 <template slot-scope="{ row, $index }">
                   <el-form-item
-                    :prop="'tableList.' + $index + '.thresholdCondition'"
-                    :rules="formData.goodsRule.thresholdCondition"
+                    :prop="
+                      'goodsRule.tableList.' + $index + '.thresholdCondition'
+                    "
+                    :rules="marketingRules.goodsRule.thresholdCondition"
                   >
                     <el-input
                       v-model="row.thresholdCondition"
@@ -237,8 +239,8 @@
               <el-table-column prop="fund" label="抵扣创新金">
                 <template slot-scope="{ row, $index }">
                   <el-form-item
-                    :prop="'tableList.' + $index + '.fund'"
-                    :rules="formData.goodsRule.fund"
+                    :prop="'goodsRule.tableList.' + $index + '.fund'"
+                    :rules="marketingRules.goodsRule.fund"
                   >
                     <el-input
                       v-model="row.fund"
@@ -257,8 +259,8 @@
               <el-table-column prop="description" label="描述">
                 <template slot-scope="{ row, $index }">
                   <el-form-item
-                    :prop="'tableList.' + $index + '.description'"
-                    :rules="formData.goodsRule.description"
+                    :prop="'goodsRule.tableList.' + $index + '.description'"
+                    :rules="marketingRules.goodsRule.description"
                   >
                     <el-input
                       v-model="row.description"
