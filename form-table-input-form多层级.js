@@ -2,13 +2,13 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-06-11 16:09:48
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-06-13 16:07:16
+ * @LastEditTime: 2022-06-13 16:32:32
  * @FilePath: \qzd-web-service\src\views\innovationFundMgr\marketingConfiguration\DetailMarketingConfiguration.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="marketing-config-detail">
-    <el-form :model="formData" :rules="marketingRules">
+    <el-form ref="marketingForm" :model="formData" :rules="marketingRules">
       <div class="back-title" @click="handleBackList">
         <i class="el-icon-back"></i> 返回列表
       </div>
@@ -32,7 +32,11 @@
               placeholder="请输入营销活动名称"
             ></el-input>
           </el-form-item>
-          <el-form-item label="活动时间" label-width="120px" required>
+          <el-form-item
+            label="活动时间"
+            label-width="120px"
+            prop="baseInfo.marketingTime"
+          >
             <el-date-picker
               clearable
               v-model="formData.baseInfo.marketingTime"
@@ -48,7 +52,11 @@
               >不限</el-checkbox
             >
           </el-form-item>
-          <el-form-item label="活动分公司" label-width="120px" required>
+          <el-form-item
+            label="活动分公司"
+            label-width="120px"
+            prop="baseInfo.company"
+          >
             <el-select
               v-model="formData.baseInfo.company"
               filterable
@@ -65,7 +73,11 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="总库存" label-width="120px" required>
+          <el-form-item
+            label="总库存"
+            label-width="120px"
+            prop="baseInfo.totalInventory"
+          >
             <el-input
               v-model="formData.baseInfo.totalInventory"
               placeholder="请输入总库存"
@@ -198,6 +210,7 @@
                 <template slot-scope="{ row, $index }">
                   <el-form-item
                     :prop="'tableList.' + $index + '.marketingMethod'"
+                    :rules="formData.goodsRule.marketingMethod"
                   >
                     <el-input
                       v-model="row.marketingMethod"
@@ -211,6 +224,7 @@
                 <template slot-scope="{ row, $index }">
                   <el-form-item
                     :prop="'tableList.' + $index + '.thresholdCondition'"
+                    :rules="formData.goodsRule.thresholdCondition"
                   >
                     <el-input
                       v-model="row.thresholdCondition"
@@ -222,7 +236,10 @@
               </el-table-column>
               <el-table-column prop="fund" label="抵扣创新金">
                 <template slot-scope="{ row, $index }">
-                  <el-form-item :prop="'tableList.' + $index + '.fund'">
+                  <el-form-item
+                    :prop="'tableList.' + $index + '.fund'"
+                    :rules="formData.goodsRule.fund"
+                  >
                     <el-input
                       v-model="row.fund"
                       placeholder="请输入抵扣创新金"
@@ -239,7 +256,10 @@
               </el-table-column>
               <el-table-column prop="description" label="描述">
                 <template slot-scope="{ row, $index }">
-                  <el-form-item :prop="'tableList.' + $index + '.description'">
+                  <el-form-item
+                    :prop="'tableList.' + $index + '.description'"
+                    :rules="formData.goodsRule.description"
+                  >
                     <el-input
                       v-model="row.description"
                       placeholder="请输入抵扣创新金"
@@ -275,7 +295,9 @@
       </div>
 
       <div class="oprate-btn">
-        <el-button type="primary" @click.prevent.native="handleSubmit"
+        <el-button
+          type="primary"
+          @click.prevent.native="handleSubmit('marketingForm')"
           >保存</el-button
         >
         <el-button type="primary">提交</el-button>
@@ -306,7 +328,7 @@ export default {
           goodsChecked: false,
           marketingName: '',
           marketingTime: [],
-          company: '',
+          company: [],
           totalInventory: null,
           discountMethod: [0],
           timeChecked: false,
@@ -352,6 +374,33 @@ export default {
         baseInfo: {
           marketingName: [
             { required: true, message: '请输入活动名称', trigger: 'blur' }
+          ],
+          marketingTime: [
+            {
+              required: true,
+              message: '请选择活动时间',
+              trigger: ['blur', 'change']
+            }
+          ],
+          totalInventory: [
+            { required: true, message: '请输入总库存', trigger: 'blur' }
+          ],
+          company: [
+            { required: true, message: '请输入活动分公司', trigger: 'change' }
+          ]
+        },
+        goodsRule: {
+          marketingMethod: [
+            { required: true, message: '请输入营销方式', trigger: 'blur' }
+          ],
+          thresholdCondition: [
+            { required: true, message: '请输入门槛条件', trigger: 'blur' }
+          ],
+          fund: [
+            { required: true, message: '请输入抵扣创新金', trigger: 'blur' }
+          ],
+          description: [
+            { required: true, message: '请输入描述', trigger: 'blur' }
           ]
         }
       }
@@ -369,8 +418,14 @@ export default {
         description: ''
       })
     },
-    handleSubmit() {
-      console.log('this.formData', this.formData)
+    handleSubmit(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          console.log('valid成功')
+        } else {
+          return false
+        }
+      })
     },
     handleInventoryInput(value) {
       if (value) {
@@ -522,6 +577,9 @@ export default {
   /deep/ .el-tag--small {
     height: 20px;
     line-height: 18px;
+  }
+  /deep/ .el-form-item__error {
+    padding-top: 0;
   }
   .delete-btn {
     color: #409eff;
