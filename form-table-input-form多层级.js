@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-06-11 16:09:48
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-06-13 16:44:55
+ * @LastEditTime: 2022-06-13 17:30:53
  * @FilePath: \qzd-web-service\src\views\innovationFundMgr\marketingConfiguration\DetailMarketingConfiguration.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -184,26 +184,26 @@
       <div class="marketing-rule">
         <div class="title">
           <el-form-item
-            label="使用规则"
-            class="weight_style "
-            required
+            label="营销规则"
+            class="weight_style"
             label-width="120px"
           >
             <div class="goods-btn">
               <el-button type="primary" @click="handleAddMarketingRule"
                 >添加</el-button
               >
-              <el-button>删除</el-button>
+              <el-button @click="handleDeleteMarketingRule">删除</el-button>
             </div>
           </el-form-item>
         </div>
         <div class="content">
-          <el-form-item label-width="120px">
+          <el-form-item label-width="120px" prop="goodsRuleS">
             <el-table
               :data="formData.goodsRule.tableList"
               tooltip-effect="dark"
               style="width: 100%"
               header-row-class-name="tableHeader"
+              @selection-change="handleMarketingSelectChange"
             >
               <el-table-column type="selection" width="55"> </el-table-column>
               <el-table-column prop="marketingMethod" label="营销方式">
@@ -272,7 +272,9 @@
               </el-table-column>
               <el-table-column label="操作" align="center">
                 <template slot-scope="{ row }">
-                  <span class="delete-btn">删除</span>
+                  <span class="delete-btn" @click="handleRuleDelete(row)"
+                    >删除</span
+                  >
                 </template>
               </el-table-column>
             </el-table>
@@ -371,6 +373,7 @@ export default {
 
       addGoodsList: [], // 这份数据是添加里面进行回显的
       goodsSelectList: [], // 商品范围选中的集合
+      marketingRuleSelectList: [], // 营销规则选中集合
 
       marketingRules: {
         baseInfo: {
@@ -404,16 +407,31 @@ export default {
           description: [
             { required: true, message: '请输入描述', trigger: 'blur' }
           ]
-        }
+        },
+        goodsRuleS: [
+          {
+            required: true,
+            validator: this.validateGoods
+          }
+        ]
       }
     }
   },
   methods: {
+    validateGoods(rule, value, callback) {
+      let goodsRuleList = this.formData.goodsRule.tableList
+      if (!goodsRuleList.length) {
+        return callback(new Error('请选择营销规则'))
+      } else {
+        callback()
+      }
+    },
     handleAddGoods() {
       this.showAddGoods = true
     },
     handleAddMarketingRule() {
       this.formData.goodsRule.tableList.push({
+        id: new Date().getTime(),
         marketingMethod: '',
         thresholdCondition: '',
         fund: '',
@@ -440,6 +458,21 @@ export default {
     },
     handleGoodsSelectChange(list) {
       this.goodsSelectList = list
+    },
+    handleDeleteMarketingRule() {
+      // formData.goodsRule.tableList 中删除 marketingRuleSelectList
+      this.formData.goodsRule.tableList = this.formData.goodsRule.tableList.filter(
+        item =>
+          !this.marketingRuleSelectList.map(key => key.id).includes(item.id)
+      )
+    },
+    handleMarketingSelectChange(list) {
+      this.marketingRuleSelectList = list
+    },
+    handleRuleDelete(row) {
+      this.formData.goodsRule.tableList = this.formData.goodsRule.tableList.filter(
+        item => item.id !== row.id
+      )
     },
     handleRowDelete(row) {
       // 删除某一行
@@ -549,9 +582,13 @@ export default {
     }
   }
   .marketing-rule {
+    /deep/ .el-table .el-table__body td {
+      padding: 6px 0;
+    }
     .el-form-item__content {
+      line-height: 28px;
       .el-input {
-        width: 150px;
+        width: 100%;
       }
     }
   }
