@@ -252,6 +252,7 @@ const contentRef = (html) => {
       }
       x.send()
 ```
+#### 76. dom设置样式input 禁用 是diabled=disabled
 
 
 
