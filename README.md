@@ -238,7 +238,20 @@ const contentRef = (html) => {
 ```
 #### 73. 原生与h5同步，h5点击之后给原生，原生修改之后调用h5传过去的回调，进行同步
 #### 74. nuxt做静态化，数据在服务器端请求回来就直接渲染，不要在客户端做处理，否则静态化不成功。判断是否成功做成静态化，我们可以在源代码上看是否在body中生成div或者a标签，如果只是数据则不成功（如果数据在服务器端请求在渲染的时候也是在服务器端做的则body中就会使用到这个数据渲染的结果）
-
+#### 75. a标签下载同域名下设置download属性可以设置文件名，如果不同域名则设置不成功
+```
+   const x = new window.XMLHttpRequest()
+      x.open('GET', fileUrl, true)
+      x.responseType = 'blob'
+      x.onload = () => {
+        const url = window.URL.createObjectURL(x.response)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = name
+        a.click()
+      }
+      x.send()
+```
 
 
 
