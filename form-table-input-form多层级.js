@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-06-11 16:09:48
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-06-14 08:58:27
+ * @LastEditTime: 2022-06-14 18:18:21
  * @FilePath: \qzd-web-service\src\views\innovationFundMgr\marketingConfiguration\DetailMarketingConfiguration.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -48,7 +48,9 @@
               end-placeholder="结束日期"
             >
             </el-date-picker>
-            <el-checkbox v-model="formData.mmsUsedRuleConfigParams.timeChecked"
+            <el-checkbox
+              @change="handleCheckedTimeLimit"
+              v-model="formData.mmsUsedRuleConfigParams.timeChecked"
               >不限</el-checkbox
             >
           </el-form-item>
@@ -117,12 +119,25 @@
             label-width="120px"
           >
             <div class="goods-btn">
-              <el-button type="primary" @click="handleAddGoods">添加</el-button>
-              <el-button type="primary" @click="handleImportFile"
+              <el-button
+                type="primary"
+                :disabled="formData.mmsUsedRuleProductAddParams.goodsRangeLimit"
+                @click="handleAddGoods"
+                >添加</el-button
+              >
+              <el-button
+                type="primary"
+                :disabled="formData.mmsUsedRuleProductAddParams.goodsRangeLimit"
+                @click="handleImportFile"
                 >导入</el-button
               >
-              <el-button @click="handleBatchDelete">删除</el-button>
-              <el-checkbox v-model="formData.goodsRange.goodsRangeLimit"
+              <el-button
+                :disabled="formData.mmsUsedRuleProductAddParams.goodsRangeLimit"
+                @click="handleBatchDelete"
+                >删除</el-button
+              >
+              <el-checkbox
+                v-model="formData.mmsUsedRuleProductAddParams.goodsRangeLimit"
                 >不限</el-checkbox
               >
             </div>
@@ -131,59 +146,66 @@
         <div class="content">
           <el-form-item label-width="120px">
             <el-table
-              :data="formData.goodsRange.tableList"
+              :data="formData.mmsUsedRuleProductAddParams.tableList"
               tooltip-effect="dark"
               style="width: 100%"
               header-row-class-name="tableHeader"
+              :header-cell-class-name="cellClass"
               @selection-change="handleGoodsSelectChange"
             >
-              <el-table-column type="selection" width="55"> </el-table-column>
               <el-table-column
-                prop="id"
+                type="selection"
+                width="55"
+                :selectable="selectableFunc"
+              >
+              </el-table-column>
+              <el-table-column
+                prop="productCode"
                 label="服务产品编码"
                 show-overflow-tooltip
               >
               </el-table-column>
               <el-table-column
-                prop="text"
+                prop="productName"
                 label="服务产品名称"
                 show-overflow-tooltip
               >
               </el-table-column>
               <el-table-column
-                prop="address"
+                prop="skuCode"
                 label="SKU编码"
                 show-overflow-tooltip
               >
               </el-table-column>
               <el-table-column
-                prop="address"
+                prop="skuName"
                 label="SKU名称"
                 show-overflow-tooltip
               >
               </el-table-column>
               <el-table-column
-                prop="address"
+                prop="priceName"
                 label="售价名称"
                 show-overflow-tooltip
               >
               </el-table-column>
-              <el-table-column
-                prop="address"
-                label="售价"
-                show-overflow-tooltip
-              >
+              <el-table-column prop="price" label="售价" show-overflow-tooltip>
               </el-table-column>
               <el-table-column
-                prop="address"
+                prop="standardPaymentScheme"
                 label="标准付款方案"
                 show-overflow-tooltip
               >
               </el-table-column>
               <el-table-column label="操作" align="center">
                 <template slot-scope="{ row }">
-                  <span class="delete-btn" @click="handleRowDelete(row)"
-                    >删除</span
+                  <el-button
+                    type="text"
+                    :disabled="
+                      formData.mmsUsedRuleProductAddParams.goodsRangeLimit
+                    "
+                    @click.native="handleRowDelete(row)"
+                    >删除</el-button
                   >
                 </template>
               </el-table-column>
@@ -210,7 +232,7 @@
         <div class="content">
           <el-form-item label-width="120px" class="marketing_rule_item">
             <el-table
-              :data="formData.goodsRule.tableList"
+              :data="formData.mmsUsedRuleItemAddParams.tableList"
               tooltip-effect="dark"
               style="width: 100%"
               header-row-class-name="tableHeader"
@@ -220,27 +242,44 @@
               <el-table-column prop="marketingMethod" label="营销方式">
                 <template slot-scope="{ row, $index }">
                   <el-form-item
-                    :prop="'goodsRule.tableList.' + $index + '.marketingMethod'"
-                    :rules="marketingRules.goodsRule.marketingMethod"
+                    :prop="
+                      'mmsUsedRuleItemAddParams.tableList.' +
+                        $index +
+                        '.marketingMethod'
+                    "
+                    :rules="
+                      marketingRules.mmsUsedRuleItemAddParams.marketingMethod
+                    "
                   >
-                    <el-input
+                    <el-select
                       v-model="row.marketingMethod"
-                      placeholder="请输入营销方式"
-                      maxlength="20"
-                    ></el-input>
+                      placeholder="请选择营销方式"
+                    >
+                      <el-option
+                        v-for="item in companyList"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      >
+                      </el-option>
+                    </el-select>
                   </el-form-item>
                 </template>
               </el-table-column>
-              <el-table-column prop="thresholdCondition" label="门槛条件">
+              <el-table-column prop="thresholdAmount" label="门槛条件">
                 <template slot-scope="{ row, $index }">
                   <el-form-item
                     :prop="
-                      'goodsRule.tableList.' + $index + '.thresholdCondition'
+                      'mmsUsedRuleItemAddParams.tableList.' +
+                        $index +
+                        '.thresholdAmount'
                     "
-                    :rules="marketingRules.goodsRule.thresholdCondition"
+                    :rules="
+                      marketingRules.mmsUsedRuleItemAddParams.thresholdAmount
+                    "
                   >
                     <el-input
-                      v-model="row.thresholdCondition"
+                      v-model="row.thresholdAmount"
                       placeholder="请输入门槛条件"
                       maxlength="8"
                       @input="handleThresholdConditionInput(row)"
@@ -248,14 +287,20 @@
                   </el-form-item>
                 </template>
               </el-table-column>
-              <el-table-column prop="fund" label="抵扣创新金">
+              <el-table-column prop="discountAmount" label="抵扣创新金">
                 <template slot-scope="{ row, $index }">
                   <el-form-item
-                    :prop="'goodsRule.tableList.' + $index + '.fund'"
-                    :rules="marketingRules.goodsRule.fund"
+                    :prop="
+                      'mmsUsedRuleItemAddParams.tableList.' +
+                        $index +
+                        '.discountAmount'
+                    "
+                    :rules="
+                      marketingRules.mmsUsedRuleItemAddParams.discountAmount
+                    "
                   >
                     <el-input
-                      v-model="row.fund"
+                      v-model="row.discountAmount"
                       placeholder="请输入抵扣创新金"
                       maxlength="8"
                       @input="handleFundInput(row)"
@@ -263,17 +308,22 @@
                   </el-form-item>
                 </template>
               </el-table-column>
-              <el-table-column
-                prop="address"
-                label="抵扣金额（元）"
-                show-overflow-tooltip
-              >
+              <el-table-column prop="discountAmountRmb" label="抵扣金额（元）">
+                <template slot-scope="{ row }">
+                  <div style="marginBottom: 12px">
+                    {{ row.discountAmountRmb || '' }}
+                  </div>
+                </template>
               </el-table-column>
               <el-table-column prop="description" label="描述">
                 <template slot-scope="{ row, $index }">
                   <el-form-item
-                    :prop="'goodsRule.tableList.' + $index + '.description'"
-                    :rules="marketingRules.goodsRule.description"
+                    :prop="
+                      'mmsUsedRuleItemAddParams.tableList.' +
+                        $index +
+                        '.description'
+                    "
+                    :rules="marketingRules.mmsUsedRuleItemAddParams.description"
                   >
                     <el-input
                       v-model="row.description"
@@ -299,9 +349,11 @@
       <div class="remark">
         <el-form-item label="备注" class="special" label-width="120px">
           <el-input
+            placeholder="请输入备注"
             type="textarea"
             rows="2"
             v-model="formData.mmsUsedRuleConfigParams.description"
+            maxlength="200"
           ></el-input>
         </el-form-item>
       </div>
@@ -315,8 +367,10 @@
               multiple
               :limit="9"
               accept=".JPG,.JPEG,.PNG,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx"
-              :on-success="handleSuccess"
+              :file-list="fileList"
+              :on-remove="handleRemove"
               :on-preview="handlePreview"
+              :on-success="handleSuccess"
             >
               <el-button size="small" type="primary">上传附件</el-button>
             </el-upload>
@@ -325,7 +379,9 @@
       </div>
 
       <div class="oprate-btn">
-        <el-button type="primary" @click.prevent.native="handleSave"
+        <el-button
+          type="primary"
+          @click.prevent.native="handleSave('marketingForm')"
           >保存</el-button
         >
         <el-button
@@ -364,7 +420,7 @@
     <AddGoods
       v-model="showAddGoods"
       v-if="showAddGoods"
-      :defaultChecked="formData.goodsRange.tableList"
+      :defaultChecked="formData.mmsUsedRuleProductAddParams.tableList"
       @handleConfirmGoods="handleConfirmGoods"
     />
   </div>
@@ -392,12 +448,13 @@ export default {
           discountMethod: [0],
           timeChecked: false,
           description: ''
+          // docAttachment: []  这个是需要转换的
         },
-        goodsRange: {
+        mmsUsedRuleProductAddParams: {
           tableList: [],
           goodsRangeLimit: false
         },
-        goodsRule: {
+        mmsUsedRuleItemAddParams: {
           tableList: []
         }
       },
@@ -438,8 +495,8 @@ export default {
           marketingTime: [
             {
               required: true,
-              message: '请选择活动时间',
-              trigger: ['blur', 'change']
+              trigger: ['change'],
+              validator: this.validateMarketingTime
             }
           ],
           totalInventory: [
@@ -449,18 +506,18 @@ export default {
             { required: true, message: '请输入活动分公司', trigger: 'change' }
           ]
         },
-        goodsRule: {
+        mmsUsedRuleItemAddParams: {
           marketingMethod: [
             { required: true, message: '请输入营销方式', trigger: 'change' }
           ],
-          thresholdCondition: [
-            { required: true, message: '请输入门槛条件', trigger: 'change' }
+          thresholdAmount: [
+            { required: true, message: '请输入门槛条件', trigger: 'blur' }
           ],
-          fund: [
-            { required: true, message: '请输入抵扣创新金', trigger: 'change' }
+          discountAmount: [
+            { required: true, message: '请输入抵扣创新金', trigger: 'blur' }
           ],
           description: [
-            { required: true, message: '请输入描述', trigger: 'change' }
+            { required: true, message: '请输入描述', trigger: 'blur' }
           ]
         },
         goodsRuleS: [
@@ -478,10 +535,36 @@ export default {
       importTplname: '《商品范围导入模板》',
 
       // 上传附件
-      fileList: []
+      fileList: [
+        {
+          name: 'food.jpeg',
+          url:
+            'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/10'
+        },
+        {
+          name: 'food2.jpeg',
+          url:
+            'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+        }
+      ],
+      saveFileList: [
+        {
+          name: 'food.jpeg',
+          url:
+            'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/10'
+        },
+        {
+          name: 'food2.jpeg',
+          url:
+            'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+        }
+      ]
     }
   },
   methods: {
+    selectableFunc() {
+      return !this.formData.mmsUsedRuleProductAddParams.goodsRangeLimit
+    },
     successUploadMethod(key) {
       // 通过key来获取数据来回显
       this.dlgImportVs = false
@@ -503,8 +586,23 @@ export default {
         .split('/')
         .join('')
     },
+    handleCheckedTimeLimit() {
+      this.formData.mmsUsedRuleConfigParams.marketingTime = []
+    },
+    validateMarketingTime(rule, value, callback) {
+      let isValida = this.formData.mmsUsedRuleConfigParams.timeChecked
+      if (isValida) {
+        callback()
+      } else {
+        if (!value || (value && !value.length)) {
+          callback(new Error('请选择活动时间'))
+        } else {
+          callback()
+        }
+      }
+    },
     validateGoods(rule, value, callback) {
-      let goodsRuleList = this.formData.goodsRule.tableList
+      let goodsRuleList = this.formData.mmsUsedRuleItemAddParams.tableList
       if (!goodsRuleList.length) {
         return callback(new Error('请选择营销规则'))
       } else {
@@ -515,25 +613,63 @@ export default {
       this.showAddGoods = true
     },
     handleAddMarketingRule() {
-      if (this.formData.goodsRule.tableList.length >= 10) return
-      this.formData.goodsRule.tableList.push({
+      if (this.formData.mmsUsedRuleItemAddParams.tableList.length >= 10) return
+      this.formData.mmsUsedRuleItemAddParams.tableList.push({
         id: new Date().getTime(),
-        marketingMethod: '',
-        thresholdCondition: null,
-        fund: null,
+        marketingMethod: null,
+        thresholdAmount: null,
+        discountAmount: null,
         description: ''
       })
     },
-    handleSave() {
-      console.log('fileList', this.fileList)
+    handleRemove(file, fileList) {
+      const { url, response: { data = [] } = {} } = file
+      let deleteUrl = url || (data.length && data[0].fileUrl)
+      console.log('deleteUrl', deleteUrl)
+      this.saveFileList = this.saveFileList.filter(
+        item => item.url !== deleteUrl
+      )
+    },
+    handlePreview(file, fileList) {
+      const { url, name, response: { data = [] } = {} } = file
+      const downloadUrl = url || (data.length && data[0].fileUrl)
+      this.handleLinkDownload({
+        fileName: name,
+        fileUrl: downloadUrl
+      })
     },
     handleSuccess(response, file, fileList) {
-      console.log('response', response)
       const { data } = response
-      this.fileList.push(data[0])
+
+      data.forEach(element => {
+        const { fileName, fileUrl } = element
+        this.saveFileList.push({
+          name: fileName,
+          url: fileUrl
+        })
+      })
     },
-    handlePreview(file) {
-      console.log('file===', file)
+    handleLinkDownload({ fileName, fileUrl }) {
+      const x = new window.XMLHttpRequest()
+      x.open('GET', fileUrl, true)
+      x.responseType = 'blob'
+      x.onload = () => {
+        const url = window.URL.createObjectURL(x.response)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = fileName
+        a.click()
+      }
+      x.send()
+    },
+    handleSave(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          console.log('valid成功')
+        } else {
+          return false
+        }
+      })
     },
     handleSubmit(formName) {
       this.$refs[formName].validate(valid => {
@@ -554,54 +690,98 @@ export default {
       }
     },
     handleFundInput(row) {
-      if (row.fund) {
-        row.fund = row.fund.replace(/[^0-9]/g, '').replace(/^[0]+[0-9]*$/gi, '')
+      if (row.discountAmount) {
+        row.discountAmount = row.discountAmount
+          .replace(/[^0-9]/g, '')
+          .replace(/^[0]+[0-9]*$/gi, '')
+        if (row.discountAmount) {
+          row.discountAmountRmb = (Number(row.discountAmount) * 0.1).toFixed(1)
+        }
       } else {
-        row.fund = null
+        row.discountAmount = null
+        row.discountAmountRmb = null
       }
     },
     handleThresholdConditionInput(row) {
-      if (row.thresholdCondition) {
-        row.thresholdCondition = row.thresholdCondition
+      if (row.thresholdAmount) {
+        row.thresholdAmount = row.thresholdAmount
           .replace(/[^0-9]/g, '')
           .replace(/^[0]+[0-9]*$/gi, '')
       } else {
-        row.thresholdCondition = null
+        row.thresholdAmount = null
       }
     },
     handleGoodsSelectChange(list) {
       this.goodsSelectList = list
     },
     handleDeleteMarketingRule() {
-      // formData.goodsRule.tableList 中删除 marketingRuleSelectList
-      this.formData.goodsRule.tableList = this.formData.goodsRule.tableList.filter(
-        item =>
-          !this.marketingRuleSelectList.map(key => key.id).includes(item.id)
-      )
+      if (!this.marketingRuleSelectList.length) {
+        return this.$message.error('请选择待删除的记录')
+      }
+      this.$confirm(`删除后的数据不能恢复，你确定要删除吗？`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          // formData.mmsUsedRuleItemAddParams.tableList 中删除 marketingRuleSelectList
+          this.formData.mmsUsedRuleItemAddParams.tableList = this.formData.mmsUsedRuleItemAddParams.tableList.filter(
+            item =>
+              !this.marketingRuleSelectList.map(key => key.id).includes(item.id)
+          )
+        })
+        .catch(() => {})
     },
     handleMarketingSelectChange(list) {
       this.marketingRuleSelectList = list
     },
     handleRuleDelete(row) {
-      this.formData.goodsRule.tableList = this.formData.goodsRule.tableList.filter(
-        item => item.id !== row.id
-      )
+      this.$confirm(`删除后的数据不能恢复，你确定要删除吗？`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.formData.mmsUsedRuleItemAddParams.tableList = this.formData.mmsUsedRuleItemAddParams.tableList.filter(
+            item => item.id !== row.id
+          )
+        })
+        .catch(() => {})
     },
     handleRowDelete(row) {
-      // 删除某一行
-      this.formData.goodsRange.tableList = this.formData.goodsRange.tableList.filter(
-        item => item.id !== row.id
-      )
+      this.$confirm(`删除后的数据不能恢复，你确定要删除吗？`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          // 删除某一行
+          this.formData.mmsUsedRuleProductAddParams.tableList = this.formData.mmsUsedRuleProductAddParams.tableList.filter(
+            item => item.id !== row.id
+          )
+        })
+        .catch(() => {})
     },
     handleBatchDelete() {
-      this.formData.goodsRange.tableList = this.formData.goodsRange.tableList.filter(
-        item => !this.goodsSelectList.map(key => key.id).includes(item.id)
-      )
-      // this.goodsSelectList 这份数据需要在this.goodsRange.tableList数据中删除
+      if (!this.goodsSelectList.length) {
+        return this.$message.error('请选择待删除的记录')
+      }
+      this.$confirm(`删除后的数据不能恢复，你确定要删除吗？`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.formData.mmsUsedRuleProductAddParams.tableList = this.formData.mmsUsedRuleProductAddParams.tableList.filter(
+            item => !this.goodsSelectList.map(key => key.id).includes(item.id)
+          )
+          // this.goodsSelectList 这份数据需要在this.mmsUsedRuleProductAddParams.tableList数据中删除
+        })
+        .catch(() => {})
     },
     handleConfirmGoods(goodsList) {
       this.addGoodsList = goodsList
-      this.formData.goodsRange.tableList = goodsList
+      this.formData.mmsUsedRuleProductAddParams.tableList = goodsList
       console.log('this.addGoodsList', this.addGoodsList)
     },
     handleCancel() {
@@ -612,6 +792,43 @@ export default {
         name: 'marketingConfiguration'
       })
     }
+  },
+  computed: {
+    cellClass() {
+      return row => {
+        if (
+          !this.formData.mmsUsedRuleProductAddParams.goodsRangeLimit &&
+          row.columnIndex === 0
+        ) {
+          return 'ShowSelection'
+        } else if (
+          this.formData.mmsUsedRuleProductAddParams.goodsRangeLimit &&
+          row.columnIndex === 0
+        ) {
+          return 'DisableSelection'
+        }
+      }
+    }
+  },
+  watch: {
+    'formData.mmsUsedRuleProductAddParams.goodsRangeLimit'(newVal, oldVal) {
+      this.$nextTick(() => {
+        if (newVal) {
+          let inputEle = document
+            .querySelector('.DisableSelection')
+            .querySelector('.el-checkbox__original')
+          inputEle.setAttribute('disabled', 'disabled')
+        } else {
+          let inputEle = document
+            .querySelector('.ShowSelection')
+            .querySelector('.el-checkbox__original')
+          inputEle.removeAttribute('disabled')
+        }
+      })
+    }
+  },
+  mounted() {
+    // 请求详情接口之后 需要重置的数据是 时间 附件
   }
 }
 </script>
@@ -700,18 +917,16 @@ export default {
     /deep/ .el-table .el-table__body td {
       padding: 6px 0;
     }
-    .el-form-item__content {
-      line-height: 28px;
+    /deep/ .el-form-item__content {
+      .el-select {
+        width: 100%;
+      }
       .el-input {
         width: 100%;
       }
     }
   }
   .oprate-btn {
-    position: sticky;
-    bottom: 0;
-    left: 0;
-    z-index: 10;
     width: 100%;
     padding-left: 80px;
     background-color: #fff;
@@ -747,6 +962,25 @@ export default {
   .delete-btn {
     color: #409eff;
     cursor: pointer;
+  }
+
+  .el-table /deep/ .DisableSelection > .cell {
+    .el-checkbox__inner {
+      background: #edf2fc;
+      cursor: not-allowed;
+      border-color: #dcdfe6;
+      &::after {
+        border-color: #c0c4cc;
+      }
+      &::before {
+        background-color: #c0c4cc;
+      }
+    }
+  }
+  .el-table /deep/ .ShowSelection > .cell {
+    .el-checkbox__inner {
+      cursor: 'pointer';
+    }
   }
 }
 </style>
