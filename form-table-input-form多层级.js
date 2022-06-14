@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-06-11 16:09:48
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-06-14 18:18:21
+ * @LastEditTime: 2022-06-14 20:43:08
  * @FilePath: \qzd-web-service\src\views\innovationFundMgr\marketingConfiguration\DetailMarketingConfiguration.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -117,6 +117,7 @@
             label="商品范围"
             class="weight_style"
             label-width="120px"
+            required
           >
             <div class="goods-btn">
               <el-button
@@ -138,13 +139,14 @@
               >
               <el-checkbox
                 v-model="formData.mmsUsedRuleProductAddParams.goodsRangeLimit"
+                @change="handleChangeLimit"
                 >不限</el-checkbox
               >
             </div>
           </el-form-item>
         </div>
         <div class="content">
-          <el-form-item label-width="120px">
+          <el-form-item label-width="120px" class="marketing_rule_item">
             <el-table
               :data="formData.mmsUsedRuleProductAddParams.tableList"
               tooltip-effect="dark"
@@ -211,6 +213,7 @@
               </el-table-column>
             </el-table>
           </el-form-item>
+          <el-form-item label-width="120px" prop="goodsRangeS"></el-form-item>
         </div>
       </div>
       <div class="marketing-rule">
@@ -523,7 +526,14 @@ export default {
         goodsRuleS: [
           {
             required: true,
-            validator: this.validateGoods
+            validator: this.validateGoods,
+            trigger: 'change'
+          }
+        ],
+        goodsRangeS: [
+          {
+            required: true,
+            validator: this.validateGoodsRange
           }
         ]
       },
@@ -601,10 +611,28 @@ export default {
         }
       }
     },
+    handleValidateGoodsRange() {
+      this.$refs.marketingForm.validateField(['goodsRangeS'])
+    },
+    handleValidateGoods() {
+      this.$refs.marketingForm.validateField(['goodsRuleS'])
+    },
+    handleChangeLimit() {
+      this.handleValidateGoodsRange()
+    },
+    validateGoodsRange(rule, value, callback) {
+      let tableList = this.formData.mmsUsedRuleProductAddParams.tableList
+      let bool = this.formData.mmsUsedRuleProductAddParams.goodsRangeLimit
+      if (!bool && !tableList.length) {
+        return callback(new Error('请添加商品范围'))
+      } else {
+        callback()
+      }
+    },
     validateGoods(rule, value, callback) {
       let goodsRuleList = this.formData.mmsUsedRuleItemAddParams.tableList
       if (!goodsRuleList.length) {
-        return callback(new Error('请选择营销规则'))
+        return callback(new Error('请添加营销规则'))
       } else {
         callback()
       }
@@ -674,7 +702,8 @@ export default {
     handleSubmit(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          console.log('valid成功')
+          console.log('saveFileList', this.saveFileList)
+          console.log('this.formData', this.formData)
         } else {
           return false
         }
@@ -812,6 +841,7 @@ export default {
   },
   watch: {
     'formData.mmsUsedRuleProductAddParams.goodsRangeLimit'(newVal, oldVal) {
+      if (!this.formData.mmsUsedRuleProductAddParams.tableList.length) return
       this.$nextTick(() => {
         if (newVal) {
           let inputEle = document
