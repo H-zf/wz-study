@@ -118,7 +118,7 @@ document.onvisibilitychange = () => {
     }
 }
 ```
-#### 57. 移入显示tooltip改版 使用样式控制版本
+#### 57. 移入显示tooltip改版 使用样式控制版本 （div隔着太近 鼠标移入移出太快会有问题）
 ```
 <el-tooltip class="item" :popper-class="closeTooltip ? 'entranceTitle-pop' : 'entranceTitle-pop hidden'" effect="dark" placement="top">
     <div slot="content">
