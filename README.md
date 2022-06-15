@@ -253,6 +253,7 @@ const contentRef = (html) => {
       x.send()
 ```
 #### 76. dom设置样式input 禁用 是diabled=disabled
+#### 77. 兄弟元素可以使用+来写样式应该可以避免第一个元素加margin和padding的问题
 
 
 
