@@ -251,6 +251,17 @@ const contentRef = (html) => {
         a.click()
       }
       x.send()
+      // 二进制流使用a标签下载
+      const link = document.createElement('a')
+      let blob = new Blob([res.data], {
+        type: 'application/vnd.ms-excel'
+      })
+      link.style.display = 'none'
+      link.href = URL.createObjectURL(blob)
+      link.download = `${this.errorReportTitle}.xlsx`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
 ```
 #### 76. dom设置样式input 禁用 是diabled=disabled
 #### 77. 兄弟元素可以使用+来写样式应该可以避免第一个元素加margin和padding的问题
