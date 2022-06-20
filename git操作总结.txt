@@ -23,6 +23,7 @@ git在合并代码的时候回退代码
 git 在tag上切分支出来
 eg: git branch release/v1.73.0(新的分支名) v1.72.0(远程tag名)
 
+git commit后没有提交到远程回退 git reset --soft sdjadsagdshagdhadwqwd 在查看git log日志时，最新的commit会在最上面 需要回退到之前的commit就可以了
 
 
 
