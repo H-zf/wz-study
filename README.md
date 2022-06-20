@@ -276,6 +276,8 @@ el.href = imgSrc
 document.body.append(el)
 el.click()
 el.remove()
+
+// 预览的时候如果下载的name与链接的名字不一致，可以在链接后缀添加?fname=某个名字就可以了
 ```
 
 
