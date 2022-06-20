@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-06-12 14:48:02
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-06-18 10:34:26
+ * @LastEditTime: 2022-06-20 14:53:00
  * @FilePath: \qzd-web-service\src\views\innovationFundMgr\marketingConfiguration\components\GoodsDetail.vues
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -38,11 +38,9 @@
               v-for="(goods, index) in goodsList"
               :label="goods.priceId"
               :key="
-                goods.priceId +
-                  index +
-                  goods.priceName +
-                  goods.productCode +
-                  new Date().getTime()
+                `${goods.priceId}${index}${goods.priceName}${
+                  goods.productCode
+                }${new Date().getTime()}`
               "
             >
               <div>
@@ -96,6 +94,33 @@
 
 <script>
 import { postAddRuleProductList } from '@/api/marketingConfig/index.js'
+import axios from 'axios'
+import { getToken } from '@/utils/auth'
+import { signature } from '@/utils/signature.js'
+let cookie = JSON.parse(getToken())
+// 创建axios实例
+const service = axios.create({
+  baseURL: '/api', // api的base_url
+  timeout: 20000, // 请求超时时间
+  withCredentials: true
+})
+let cancel
+const CancelToken = axios.CancelToken
+function postAddRuleProductListSearch(data) {
+  return service({
+    url: '/qzd-bff-operation/innovationFund/mmsUsedRuleConfig/queryIpsProduct',
+    method: 'post',
+    data,
+    cancelToken: new CancelToken(c => {
+      cancel = c
+    }),
+    headers: {
+      accessToken: cookie.token,
+      signature: signature(cookie.token, cookie.paramSig)
+    }
+  })
+}
+
 let firstRender = true
 export default {
   props: {
@@ -145,27 +170,59 @@ export default {
     computedText() {
       return goods => {
         // “【”+SKU编码+“】”+SKU名称+“/”+售价名称（售价类型为办事处售价时，需要拼接分公司信息）+“/”+标准付款方案
-        const { skuName = '', skuCode = '', productName = '' } = goods
-        let str = `【${skuCode}】${skuName}/${productName}`
+        const priceTypeOptions = {
+          0: '办事处报价',
+          1: '自定义报价',
+          2: '统一报价',
+          3: '集团报价'
+        }
+        const {
+          skuName = '',
+          skuCode = '',
+          productName = '',
+          priceType = 3,
+          standardPaymentScheme = '',
+          companyName = ''
+        } = goods
+        let str = `【${skuCode}】${skuName} / ${productName} / ${
+          priceTypeOptions[priceType]
+        }${
+          priceType === 0
+            ? `${companyName ? ` / ${companyName}` : ''}${
+                standardPaymentScheme ? ` / ${standardPaymentScheme}` : ''
+              }`
+            : ''
+        }`
         return str
       }
     }
   },
   methods: {
     async fetchAddRuleProductList(filter = false) {
+      if (filter && cancel) {
+        cancel()
+      }
       let params = {
         current: this.filterStr ? this.filterCurrent : this.current,
         pageSize: 20,
         searchKey: this.filterStr
       }
-      if (filter || this.current === 1) {
+      if (
+        (this.filterStr && this.filterCurrent === 1) ||
+        (!this.filterStr && this.current === 1)
+      ) {
         this.firstRenderLoading = true
       }
       const {
         data: { data = {} }
-      } = await postAddRuleProductList(params)
+      } = await (filter
+        ? postAddRuleProductListSearch(params)
+        : postAddRuleProductList(params))
       const { records = [] } = data
-      if (filter || this.current === 1) {
+      if (
+        (this.filterStr && this.filterCurrent === 1) ||
+        (!this.filterStr && this.current === 1)
+      ) {
         this.firstRenderLoading = false
       }
       if (!this.filterStr) {
@@ -186,7 +243,6 @@ export default {
       } else {
         this.sumCheckData = this.concatDefaultFetch(this.sumCheckData, records)
       }
-      console.log('this.sumCheckData', this.sumCheckData.length)
       this.goodsList = this.goodsList.concat(records)
       firstRender = false
     },
@@ -201,9 +257,18 @@ export default {
       this.closeTooltip = false
     },
     handleFilterInput(str) {
-      if (!str) return (this.goodsList = this.saveNoFilterGoodsListSum)
-      this.filterCurrent = 1
+      if (!str) {
+        this.goodsList = this.saveNoFilterGoodsListSum
+        setTimeout(() => {
+          // 切换数据的时候滚动条触底会自动触发load
+          let containor = document.querySelector('#contentscroll')
+          let scrollTop = containor.scrollTop
+          containor.scrollTop = scrollTop - 10
+        }, 0)
+        return
+      }
       this.disableBool = true
+      this.filterCurrent = 1
       this.goodsList = []
       this.fetchAddRuleProductList(true)
     },
