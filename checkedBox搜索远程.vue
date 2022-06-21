@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-06-12 14:48:02
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-06-20 14:53:00
+ * @LastEditTime: 2022-06-20 22:04:16
  * @FilePath: \qzd-web-service\src\views\innovationFundMgr\marketingConfiguration\components\GoodsDetail.vues
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -27,7 +27,7 @@
           class="content"
           id="contentscroll"
           v-infinite-scroll="load"
-          :infinite-scroll-disabled="disableBool"
+          :infinite-scroll-disabled="disableScrollBool"
           v-loading="firstRenderLoading"
         >
           <el-checkbox-group
@@ -50,6 +50,10 @@
           </el-checkbox-group>
           <div class="no-data" v-if="!firstRenderLoading && !goodsList.length">
             暂无数据
+          </div>
+
+          <div class="loading-text" v-if="loadingTextBool">
+            加载中<span class="dot">...</span>
           </div>
         </div>
       </div>
@@ -121,7 +125,6 @@ function postAddRuleProductListSearch(data) {
   })
 }
 
-let firstRender = true
 export default {
   props: {
     value: {
@@ -150,7 +153,10 @@ export default {
       disableBool: true,
 
       filterCurrent: 0,
-      firstRenderLoading: false
+      firstRenderLoading: false,
+
+      loadingTextBool: false,
+      firstRender: true
     }
   },
   created() {
@@ -166,6 +172,9 @@ export default {
       set(value) {
         this.$emit('input', value)
       }
+    },
+    disableScrollBool() {
+      return this.disableBool || this.loadingTextBool
     },
     computedText() {
       return goods => {
@@ -186,12 +195,8 @@ export default {
         } = goods
         let str = `【${skuCode}】${skuName} / ${productName} / ${
           priceTypeOptions[priceType]
-        }${
-          priceType === 0
-            ? `${companyName ? ` / ${companyName}` : ''}${
-                standardPaymentScheme ? ` / ${standardPaymentScheme}` : ''
-              }`
-            : ''
+        }${priceType === 0 ? `${companyName ? ` / ${companyName}` : ''}` : ''}${
+          standardPaymentScheme ? ` / ${standardPaymentScheme}` : ''
         }`
         return str
       }
@@ -212,6 +217,8 @@ export default {
         (!this.filterStr && this.current === 1)
       ) {
         this.firstRenderLoading = true
+      } else {
+        this.loadingTextBool = true
       }
       const {
         data: { data = {} }
@@ -224,6 +231,8 @@ export default {
         (!this.filterStr && this.current === 1)
       ) {
         this.firstRenderLoading = false
+      } else {
+        this.loadingTextBool = false
       }
       if (!this.filterStr) {
         this.saveNoFilterGoodsListSum = this.saveNoFilterGoodsListSum.concat(
@@ -235,7 +244,7 @@ export default {
       } else {
         this.disableBool = false
       }
-      if (firstRender) {
+      if (this.firstRender) {
         this.sumCheckData = this.concatDefaultFetch(
           this.defaultChecked,
           records
@@ -244,7 +253,7 @@ export default {
         this.sumCheckData = this.concatDefaultFetch(this.sumCheckData, records)
       }
       this.goodsList = this.goodsList.concat(records)
-      firstRender = false
+      this.firstRender = false
     },
     handleEnterPurse(e) {
       if (e.target.offsetWidth < e.target.scrollWidth) {
@@ -330,6 +339,14 @@ export default {
 </script>
 
 <style lang="scss">
+@keyframes dot {
+  33% {
+    transform: translateY(-2em);
+  }
+  66% {
+    transform: translateY(-1em);
+  }
+}
 .marketing-add-goods.el-dialog {
   .transfor {
     display: flex;
@@ -346,6 +363,26 @@ export default {
           text-align: center;
           color: #dddddd;
           line-height: 112px;
+        }
+        .loading-text {
+          display: flex;
+          justify-content: center;
+        }
+        .dot {
+          /*让点垂直居中*/
+          height: 1em;
+          line-height: 1;
+          /*让点垂直排列*/
+          display: flex;
+          flex-direction: column;
+          /*溢出部分的点隐藏*/
+          overflow: hidden;
+        }
+        .dot::before {
+          /*三行三种点，需要搭配white-space:pre使用才能识别\A字符*/
+          content: '...\A..\A.';
+          white-space: pre-wrap;
+          animation: dot 3s infinite step-end; /*step-end确保一次动画结束后直接跳到下一帧而没有过渡*/
         }
         .el-checkbox {
           display: block;
