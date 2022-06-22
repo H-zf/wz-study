@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-04-07 14:00:04
- * @LastEditTime: 2022-06-22 14:18:29
+ * @LastEditTime: 2022-06-22 14:41:49
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \ts-demo\src\App.tsx
@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from "react";
 import "./App.scss";
 let touchStart: number;
 let touchEnd: number;
+let saveCurrentLeft: number;
 function App() {
   const ulRef = useRef<any>();
   const [distance, setDistance] = useState<number>(0);
@@ -34,13 +35,16 @@ function App() {
     e.stopPropagation();
     if (e.changedTouches.length === 1) {
       let distance = touchEnd - touchStart;
-      if (currentIndex <= 3 && distance < 0) {
-        (document.querySelector(".ul-style") as Element).scrollLeft = 0;
-      }
+      // 什么时候来记录滚动条的位置 是滚动的时候 还是操作完成一次滚动之后来保存当前的位置
+      // if (currentIndex <= 3 && distance < 0) {
+      //   (document.querySelector(".ul-style") as Element).scrollLeft = 0;
+      // }
 
-      if (currentIndex >= 5 && distance > 0) {
-        (document.querySelector(".ul-style") as Element).scrollLeft = 4 * 88;
-      }
+      // if (currentIndex >= 5 && distance > 0) {
+      //   (document.querySelector(".ul-style") as Element).scrollLeft = 4 * 88;
+      // }
+      (document.querySelector(".ul-style") as Element).scrollLeft =
+        saveCurrentLeft;
       setDistance(distance);
     }
   };
@@ -89,6 +93,9 @@ function App() {
           (document.querySelector(".ul-style") as Element).scrollLeft - widthU;
       }
     }
+
+    saveCurrentLeft = (document.querySelector(".ul-style") as Element)
+      .scrollLeft;
   }, [currentIndex, widthU]);
   const handleScroll = () => {
     console.log("handleScroll");
