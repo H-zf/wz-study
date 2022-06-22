@@ -6,6 +6,7 @@
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \ts-demo\src\App.tsx
  */
+// 最主要的是在切换的时候需要保存上一次运动的位置，在滚动时还原到原先的位置先
 import { useState, useEffect, useRef } from "react";
 import "./App.scss";
 let touchStart: number;
