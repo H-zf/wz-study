@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-04-07 14:00:04
- * @LastEditTime: 2022-06-21 20:00:38
+ * @LastEditTime: 2022-06-22 14:18:29
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \ts-demo\src\App.tsx
@@ -34,6 +34,13 @@ function App() {
     e.stopPropagation();
     if (e.changedTouches.length === 1) {
       let distance = touchEnd - touchStart;
+      if (currentIndex <= 3 && distance < 0) {
+        (document.querySelector(".ul-style") as Element).scrollLeft = 0;
+      }
+
+      if (currentIndex >= 5 && distance > 0) {
+        (document.querySelector(".ul-style") as Element).scrollLeft = 4 * 88;
+      }
       setDistance(distance);
     }
   };
@@ -65,37 +72,34 @@ function App() {
     let eleEle: HTMLDivElement | null = document.querySelector(".item");
     let widthI = ele?.offsetWidth || 0;
     let widthU = eleEle?.offsetWidth || 0;
+    console.log("widthU==", widthU);
     const scWidth = ulRef.current.scrollWidth;
     const clientWidth = document.documentElement.clientWidth;
     const shouldScrollWidth = scWidth - clientWidth;
     setOffsetVal(-widthI * currentIndex);
     if (direction === "left") {
       if (currentIndex > 3) {
-        setOffsetNavVal((distanceX) => {
-          if (distanceX - widthU < -shouldScrollWidth) {
-            return -shouldScrollWidth;
-          }
-          return distanceX - widthU;
-        });
+        (document.querySelector(".ul-style") as Element).scrollLeft =
+          (document.querySelector(".ul-style") as Element).scrollLeft + widthU;
       }
     }
     if (direction === "right") {
       if (currentIndex < 5) {
-        setOffsetNavVal((distanceX) => {
-          if (distanceX + widthU >= 0) return 0;
-          return distanceX + widthU;
-        });
+        (document.querySelector(".ul-style") as Element).scrollLeft =
+          (document.querySelector(".ul-style") as Element).scrollLeft - widthU;
       }
     }
   }, [currentIndex, widthU]);
+  const handleScroll = () => {
+    console.log("handleScroll");
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, true);
+  }, []);
   return (
     <div className="box-containor">
       <div className="ul-style">
-        <div
-          ref={ulRef}
-          className="ul-style-containor"
-          style={{ left: `${offsetNavVal}px` }}
-        >
+        <div ref={ulRef} className="ul-style-containor">
           <div className="item">
             <div>选项1</div>
             <div className={currentIndex === 0 ? "line active" : "line"}></div>
