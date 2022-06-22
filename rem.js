@@ -1,3 +1,5 @@
+// rem是适配屏幕大小然后动态修改html根元素的fontsize
+// rem适配除以750 / 7.5 是为了方便1rem = 100px 方便我们前端写rem方便
 let unitBodyFontsize
 ;(function (doc, win) {
   let documentEle = doc.documentElement
