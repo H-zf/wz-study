@@ -288,6 +288,15 @@ el.remove()
   ```
 #### 83. react 开发移动端可以选择react-vant antd-mobile 5.0.0 zarm
 #### 84. 在项目中需要引入一些比较常用的第三方库时体积比较大时，可以将文件放在static中（文件打包的输出文件夹中），使用CopyWebpackPlugin插件打包到dist指定的文件夹中，在html中直接使用script来引入使用绝对路径引入"/"，可以事先使用build打包一次 看看文件夹中的文件地址
+```
+      {
+        from: path.resolve(__dirname, '../static'),
+        to: config.build.assetsSubDirectory,
+        ignore: ['.*']
+      }
+      
+      在项目中可以使用相对路径来进行文件查找都是可以的
+```
 
 
 
