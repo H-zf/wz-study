@@ -1,0 +1,13 @@
+// 暴露文件包中添加index.js文件 引入需要暴露的组件 暴露install方法是方便vue注册 此包也支持直接使用 export该组件了 参数也就可以直接传递在组件上了
+
+import { App } from 'vue'
+// import type { SFCWithInstall } from '../utils/types'
+import QzdCustomerServiceLayer from './src/index.vue'
+
+QzdCustomerServiceLayer.install = (app: App): void => {
+  app.component(QzdCustomerServiceLayer.name, QzdCustomerServiceLayer)
+}
+
+// const _Button: SFCWithInstall<typeof Button> = Button
+
+export default QzdCustomerServiceLayer
