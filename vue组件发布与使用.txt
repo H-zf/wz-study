@@ -11,3 +11,8 @@ QzdCustomerServiceLayer.install = (app: App): void => {
 // const _Button: SFCWithInstall<typeof Button> = Button
 
 export default QzdCustomerServiceLayer
+
+
+// src index.js
+vue写组件的写法来写组件就ok了
+判断页面滚动与不滚动，可以在滚动的时候将值（scrollY）保存起来，然后监听该值的变化 来判断值是否与保存的值一样来开启动画或者关闭动画，transition 改变right值来做动画
