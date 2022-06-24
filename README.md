@@ -299,7 +299,15 @@ el.remove()
 ```
 #### 85. npm安装包时，可以先删除node_moudles然后清理下npm的缓存npm clean cache -force
 #### 86. babel-plugin-import是按需来加载组件，正常是引入组件和样式，这个插件是来帮你做了这层处理
-
+#### 87. 动态设置css变量
+```
+// 设置变量
+document.body.style.setProperty('--primary', '#7F583F');
+// 读取变量
+document.body.style.getPropertyValue('--primary').trim();
+// 删除变量
+document.body.style.removeProperty('--primary');
+```
 
 
 
