@@ -301,6 +301,7 @@ el.remove()
 #### 86. babel-plugin-import是按需来加载组件，正常是引入组件和样式，这个插件是来帮你做了这层处理
 #### 87. 动态设置css变量
 ```
+// 使用的变量貌似只能set才能get 自己在root或者body中定义的变量貌似获取不到
 // 设置变量
 document.body.style.setProperty('--primary', '#7F583F');
 // 读取变量
