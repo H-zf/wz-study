@@ -1,3 +1,14 @@
 :root {
   --color: red;
 }
+// css变量的权重以及使用范围
+:root中声明的变量可以在文档html下的元素都可以使用到 在class中也可以声明变量，使用范围就是类名后代元素中可以使用（div.item div.children 元素children是item的子元素，则在item中定义的变量则可以在children类中使用）
+root中可以定义变量，在使用的元素中也可以定义相同的变量，则权重高于root中的变量声明
+// 可以通过getComputedStyle来得到元素的样式
+const bodyStyle = getComputedStyle(document.body)
+// 通过getPropertyValue来获取到当前元素css变量中的值
+const eleStyle = bodyStyle.getPropertyValue("--color");
+// 设置变量 通过setProperty来设置元素的变量值
+document.body.style.setProperty('--primary', '#7F583F');
+// 删除变量
+document.body.style.removeProperty('--primary');
