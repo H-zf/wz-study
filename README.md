@@ -297,7 +297,7 @@ el.remove()
       
       在项目中可以使用相对路径来进行文件查找都是可以的
 ```
-#### 85. npm安装包时，可以先删除node_moudles然后清理下npm的缓存npm clean cache -force
+#### 85. npm安装包时，可以先删除node_moudles然后清理下npm的缓存npm cache clean --force
 #### 86. babel-plugin-import是按需来加载组件，正常是引入组件和样式，这个插件是来帮你做了这层处理
 
 
