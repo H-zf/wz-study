@@ -1,0 +1,131 @@
+<!--
+ * @Author: error: git config user.name && git config user.email & please set dead value or install git
+ * @Date: 2022-06-25 12:32:43
+ * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2022-06-27 14:49:26
+ * @FilePath: \qzd-web-h5\src\views\shop\order\components\UseRule.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+// 计算bottom和left 项目中是使用rem适配
+let distance = 12
+  this.bottom =
+    document.documentElement.clientHeight -
+    event.target.getBoundingClientRect().bottom +
+    event.target.offsetHeight +
+    distance
+  let htmlFontSise = getComputedStyle(window.document.documentElement)['font-size'].replace('px', '')
+  this.left = event.target.parentNode.getBoundingClientRect().left - 0.85 * htmlFontSise + 0.12 * htmlFontSise
+
+
+<template>
+  <div class="pop-up" @click="handleHiddenPop">
+    <div class="use-rule-containor" @click="(e) => e.stopPropagation()" :style="{ bottom: bottom + 'px' }">
+      <div class="title">{{ type === '1' ? '创新金使用规则' : '优惠券使用规则' }}</div>
+      <div class="content" v-if="type === '1'">
+        1、创新金只可用于抵扣首付款订单，每10创新金可抵扣1元，不同服务商品订单使用门槛和抵扣数量会有不同，具体以系统订单页面展示为准；
+        <br />
+        2、当账户创新金余额低于下单活动商品的最低创新金数量时，则无法使用创新金，需要通过做任务提升创新金余额；
+        <br />
+        3、单笔订单内优惠券和创新金不可同时使用；
+      </div>
+      <div class="content" v-else>
+        1、优惠券具有使用条件，若订单不能同时满足使用条件则无法使用；
+        <br />
+        2、优惠券只可用于抵扣订单首付款，实际抵扣金额以订单页面显示为准；
+        <br />
+        3、单笔订单内优惠券和创新金不可同时使用；
+      </div>
+      <div class="popper__arrow" :style="{ left: left + 'px' }"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: {
+      type: {
+        type: String
+      },
+      bottom: {
+        type: Number
+      },
+      left: {
+        type: Number
+      }
+    },
+    methods: {
+      handleHiddenPop() {
+        this.$emit('handleHiddenPop')
+      }
+    },
+    mounted() {
+      this.$nextTick(() => {
+        const body = document.querySelector('body')
+        if (body.append) {
+          body.append(this.$el)
+        } else {
+          body.appendChild(this.$el)
+        }
+      })
+    }
+  }
+</script>
+
+<style scoped lang="scss">
+  .pop-up {
+    position: fixed;
+    z-index: 9999999;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  .use-rule-containor {
+    position: fixed;
+    right: 0.85rem;
+    width: 5.8rem;
+    padding-bottom: 0.38rem;
+    background: #ffffff;
+    box-shadow: 0 0.12rem 0.48rem 0.16rem rgba(0, 0, 0, 0.09);
+    border-radius: 0.18rem;
+    .title {
+      padding-left: 0.3rem;
+      font-weight: 600;
+      font-size: 0.32rem;
+      color: #292a2d;
+      letter-spacing: 0;
+      line-height: 1.04rem;
+    }
+    .content {
+      padding: 0 0.3rem;
+      font-size: 0.28rem;
+      color: #666666;
+      line-height: 0.36rem;
+    }
+    .popper__arrow {
+      position: absolute;
+      bottom: -0.17rem;
+      margin-right: 0.18rem;
+      border-top-color: #ebeef5;
+      border-bottom-width: 0;
+      border-width: 0.18rem;
+      filter: drop-shadow(0 0.02rem 0.12rem rgba(0, 0, 0, 0.03));
+      &:after {
+        content: ' ';
+        border-width: 0.18rem;
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        bottom: 0.01rem;
+        margin-left: -0.18rem;
+        border-top-color: #fff;
+        border-bottom-width: 0;
+      }
+    }
+  }
+</style>
