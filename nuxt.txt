@@ -10,5 +10,7 @@ nuxt 开发注意点
 3. 在做seo的时候，如果服务器请求回来的数据，再渲染，没有任何变量控制渲染，则会被爬虫抓取，如果你使用了变量，那我们就要注意你的变量不能是在客户端操作的
 例如你在mounted中使用了变量来控制服务端请求接口的数据渲染，那你使用该数据生成的a标签就不会被爬虫收录，此次seo失败
 4. meta content keyword description 都是会影响爬虫收录的
+5. nuxt中在page中配置就能自动生成路由，应该是把服务启动时再添加文件夹才行，没启动服务添加则不能生成。在文件夹中设置-id -page区分不了，则需要在nuxt.config.js中配置route extendRoutes 来自定义路由来区分进入哪个文件夹 
+
 
 https://blog.csdn.net/qq_38290251/article/details/106519985
