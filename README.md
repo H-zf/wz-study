@@ -299,7 +299,7 @@ el.remove()
 ```
 #### 85. npm安装包时，可以先删除node_moudles然后清理下npm的缓存npm cache clean --force
 #### 86. babel-plugin-import是按需来加载组件，正常是引入组件和样式，这个插件是来帮你做了这层处理
-
+#### 87. @是别名配置~是样式中的相对的概念 例如~@是相对于@配置别名的地址src下的文件路径
 
 
 
