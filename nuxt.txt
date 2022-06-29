@@ -29,4 +29,5 @@ router: {
     }
   },
 _下划线文件会自动生成路由，如果不是这种格式的例如使用-来生成的文件不会生成路由，如果需要使用也可以用上面的自定义路由来进行配置路由
+6. 在layouts文件夹中添加error文件，然后在asyncData的回调函数中结构error来调用就可以了
 https://blog.csdn.net/qq_38290251/article/details/106519985
