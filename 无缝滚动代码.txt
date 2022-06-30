@@ -261,11 +261,11 @@ setIndex() {
   }
 </style>
 // animation的时间与运动的距离是有关系的 大概是1:30 20s: 600px 不然会抖动
-// <!--
+<!--
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-06-30 10:09:23
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-06-30 15:48:49
+ * @LastEditTime: 2022-06-30 16:40:26
  * @FilePath: \qzd-content-pc\src\pages\activity\_id.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%Ativity
 -->
@@ -336,7 +336,7 @@ setIndex() {
       }
     },
     mounted() {
-      let y = -this.arr.length * 30 + 'px'
+      let y = -this.arr.length * 28 + 'px'
       this.arr = [...this.arr, ...this.arr.slice(0, 5)]
       this.addKeyFrames(y)
     }
@@ -350,7 +350,8 @@ setIndex() {
     padding: 0 10px;
     padding-top: 10px;
     .item {
-      height: 30px;
+      height: 28px;
+      line-height: 28px;
     }
     &::before {
       content: '';
@@ -386,7 +387,7 @@ setIndex() {
   .list .ddddddd {
     position: relative;
     width: 100%;
-    animation: rowup 20s linear 0s infinite;
+    animation: rowup 18.6s linear 0s infinite;
   }
 </style>
 
