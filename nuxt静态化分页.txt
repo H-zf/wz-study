@@ -1,0 +1,201 @@
+<template>
+  <div class="pagination-wrapper">
+    <div class="pagination">
+      <span :class="nowPage === 1 ? 'forbid' : 'next'" @click="(e) => change(e, nowPage - 1, 'arrow')"></span>
+      <a
+        v-for="i in list"
+        :key="i"
+        :class="['number', nowPage === i ? 'active' : '']"
+        @click="(e) => change(e, i)"
+        :href="transHref(i)"
+        >{{ i }}</a
+      >
+      <span :class="nowPage === pageCount ? 'forbid1' : 'next1'" @click="(e) => change(e, nowPage + 1, 'arrow')"></span>
+    </div>
+  </div>
+</template>
+<script>
+  export default {
+    name: 'Pagination',
+    props: {
+      // 当前页码
+      nowPage: {
+        type: Number,
+        default: 1
+      },
+      // 总页数
+      pageCount: {
+        type: Number,
+        default: 1
+      },
+      paginationHrefPrefix: {
+        type: String
+      },
+      // a标签跳转还是emit查数据 true=>a  false=>script
+      seoStatus: {
+        type: Boolean,
+        default: true
+      }
+    },
+    data() {
+      return {
+        list: []
+      }
+    },
+    watch: {
+      nowPage() {
+        this.init()
+      },
+      pageCount() {
+        this.init()
+      }
+    },
+    created() {
+      this.init()
+    },
+    mounted() {},
+    methods: {
+      init() {
+        this.list = []
+        if (this.nowPage < 7) {
+          let total = Number(this.pageCount < 10 ? this.pageCount : 10)
+          for (let i = 0; i < total; i++) {
+            this.list.push(i + 1)
+          }
+        } else {
+          let total = Number(this.pageCount < this.nowPage + 4 ? this.pageCount : this.nowPage + 4)
+          let start = total - (this.nowPage - 5) < 9 ? total - 9 : this.nowPage - 5
+          if (start < 1) {
+            start = 1
+          }
+          for (let i = start; i < total + 1; i++) {
+            this.list.push(i)
+          }
+        }
+      },
+      change(e, i, type = '') {
+        if (i === this.nowPage || !this.seoStatus) {
+          e.preventDefault()
+          this.$emit('changePage', i)
+        }
+        if (this.seoStatus && type === 'arrow') {
+          let url = ''
+          if (i === 1) {
+            url = this.paginationHrefPrefix.replace('/page-', '')
+          } else {
+            url = this.paginationHrefPrefix + i
+          }
+          window.location.href = url
+        }
+      },
+      transHref(i) {
+        if (i === 1) {
+          return this.paginationHrefPrefix.replace('/page-', '')
+        } else {
+          return this.paginationHrefPrefix + i
+        }
+      }
+    }
+  }
+</script>
+<style scoped lang="scss">
+  .el-select {
+    font-size: 14px;
+    width: 100px;
+    height: 30px !important;
+    line-height: 30px !important;
+  }
+
+  .pagination-wrapper {
+    width: 100%;
+    height: 50px;
+    padding: 8px 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    .pagination {
+      width: 100%;
+      span,
+      .number {
+        display: inline-block;
+        height: 28px;
+        margin: 0 5px;
+        background-color: #f4f4f5;
+        color: #606266;
+        min-width: 28px;
+        border-radius: 2px;
+        padding: 0 4px;
+        cursor: pointer;
+        text-align: center;
+        line-height: 28px;
+        vertical-align: middle;
+      }
+      .number:hover {
+        color: #717173;
+        background: #e6e6ed;
+      }
+      .active {
+        background-color: #3981f4;
+        color: #fff;
+        cursor: default;
+        &:hover {
+          background-color: #3981f4;
+          color: #fff;
+        }
+      }
+      .next {
+        background-image: url('~assets/image/icon/2.png');
+        background-size: 100% 100%;
+        &:hover {
+          background-image: url('~assets/image/icon/hover1.png');
+          background-size: 100% 100%;
+        }
+      }
+      .next1 {
+        background-image: url('~assets/image/icon/4.png');
+        background-size: 100% 100%;
+        &:hover {
+          background-image: url('~assets/image/icon/hover2.png');
+          background-size: 100% 100%;
+        }
+      }
+      .forbid {
+        background-image: url('~assets/image/icon/1.png');
+        background-size: 100% 100%;
+        pointer-events: none;
+      }
+      .forbid1 {
+        background-image: url('~assets/image/icon/3.png');
+        background-size: 100% 100%;
+        pointer-events: none;
+      }
+      .go {
+        font-size: 14px;
+        margin-left: 24px;
+        color: #606266;
+        input {
+          background-color: #fff;
+          border-radius: 4px;
+          height: 28px;
+          width: 50px;
+          border: 1px solid #dcdcdc;
+          box-sizing: border-box;
+          color: #0a0a17;
+          display: inline-block;
+          text-align: center;
+          padding: 0 3px;
+        }
+      }
+      .confirm {
+        display: inline-block;
+        width: 46px;
+        height: 28px;
+        line-height: 28px;
+        cursor: pointer;
+        text-align: center;
+        border-radius: 4px;
+        color: #fff;
+        background: #427aff;
+      }
+    }
+  }
+</style>
