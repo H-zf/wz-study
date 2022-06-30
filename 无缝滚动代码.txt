@@ -260,7 +260,7 @@ setIndex() {
     animation: 30s rowup linear infinite normal;
   }
 </style>
-// animation的时间与运动的距离是有关系的 大概是1:3 20s: 600px 不然会抖动
+// animation的时间与运动的距离是有关系的 大概是1:30 20s: 600px 不然会抖动
 // <!--
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-06-30 10:09:23
