@@ -260,3 +260,133 @@ setIndex() {
     animation: 30s rowup linear infinite normal;
   }
 </style>
+// animation的时间与运动的距离是有关系的 大概是1:3 20s: 600px 不然会抖动
+// <!--
+ * @Author: error: git config user.name && git config user.email & please set dead value or install git
+ * @Date: 2022-06-30 10:09:23
+ * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2022-06-30 15:48:49
+ * @FilePath: \qzd-content-pc\src\pages\activity\_id.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%Ativity
+-->
+<template>
+  <div>
+    <div class="activity-content list">
+      <ul
+        class="ul-content ddddddd"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
+        :style="{ 'animation-play-state': paused ? 'paused' : '' }"
+      >
+        <li class="item" v-for="(item, index) in arr" :key="item + index">{{ item }}</li>
+      </ul>
+    </div>
+  </div>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        arr: [
+          '阿斯加德撒个娇都干啥大萨达撒大哥几个',
+          '撒打电话撒都干啥的阿萨德说鬼话发的',
+          '完全二维天气热我邀请特然',
+          '说下吧内存不足你吃吧洗面奶在保持在现场',
+          '为企业投一千万特uasgdhadg',
+          '撒大声地过撒无群二',
+          '系统中餐厅撒打我家客户给个机会桑德',
+          '跑is噶度撒范德萨股东会给我加企鹅',
+          '望金沙打三个都是经过时间啊的',
+          '茶水费干哈贾湖骨笛萨的好时机啊',
+          '一整天玉兔捣药萨体育对他说的',
+          '天资愚钝撒对于萨杜萨大使馆哈滴',
+          '王企鹅无群儿童网球诶呀我去而且',
+          '是的撒孤岛惊魂搜嘎大家观赏到',
+          '撒的韩国萨觉得干啥都敢说的',
+          '十多万奇特科技是北京看下哈圣诞节山东',
+          '破欧萨U盾菩萨U盘杜阿斯顿',
+          '欧少都有武器和科技委屈额几千万',
+          '请假卡告诉广大丰富的晕头转向一个持续健康证',
+          '问题踏踏鸭锁骨干大事的'
+        ],
+        paused: false
+      }
+    },
+    methods: {
+      addKeyFrames(y) {
+        let style = document.createElement('style')
+        style.type = 'text/css'
+        let keyFrames = `
+            @keyframes rowup {\
+                0% {\
+                    top: 0;\
+                }\
+                100% {\
+                    top: A_DYNAMIC_VALUE;\
+                }\
+            }`
+        style.innerHTML = keyFrames.replace(/A_DYNAMIC_VALUE/g, y)
+        document.getElementsByTagName('head')[0].appendChild(style)
+      },
+      handleMouseEnter() {
+        this.paused = true
+      },
+      handleMouseLeave() {
+        this.paused = false
+      }
+    },
+    mounted() {
+      let y = -this.arr.length * 30 + 'px'
+      this.arr = [...this.arr, ...this.arr.slice(0, 5)]
+      this.addKeyFrames(y)
+    }
+  }
+</script>
+<style scoped lang="scss">
+  .activity-content {
+    position: relative;
+    overflow: hidden;
+    height: 120px;
+    padding: 0 10px;
+    padding-top: 10px;
+    .item {
+      height: 30px;
+    }
+    &::before {
+      content: '';
+      height: 10px;
+      background-color: #fff;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+    }
+    &::after {
+      content: '';
+      height: 10px;
+      background-color: #fff;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+  }
+  .list {
+    border: 1px solid #999;
+  }
+  //   @keyframes rowup {
+  //     0% {
+  //       top: 0;
+  //     }
+  //     100% {
+  //       top: -600px;
+  //     }
+  //   }
+  .list .ddddddd {
+    position: relative;
+    width: 100%;
+    animation: rowup 20s linear 0s infinite;
+  }
+</style>
+
