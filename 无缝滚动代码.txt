@@ -77,3 +77,186 @@ setIndex() {
     .v-leave-to {
         transform: translateY(-100%);
     }
+// 页面中多条数据一起无缝滚动
+<!--
+ * @Author: error: git config user.name && git config user.email & please set dead value or install git
+ * @Date: 2022-06-30 10:09:23
+ * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2022-06-30 11:17:10
+ * @FilePath: \qzd-content-pc\src\pages\activity\_id.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%Ativity
+-->
+<template>
+  <div>
+    <div class="activity-content list">
+      <ul
+        class="ul-content rowup"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
+        :style="{ 'animation-play-state': paused ? 'paused' : '' }"
+      >
+        <li class="item" v-for="(item, index) in arr" :key="item + index">{{ item }}</li>
+      </ul>
+    </div>
+  </div>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        arr: [
+          '111111111111111111111111111111111111111111',
+          '2222222222222222222222222222222222222222222',
+          '333333333333333333333333333333333333333333',
+          '44444444444444444444444444444444444444444444',
+          '555555555555555555555555555555555555555555555',
+          '666666666666666666666666666666666666666666666',
+          '777777777777777777777777777777777777777777777',
+          '8888888888888888888888888888888888888888888888',
+          '9999999999999999999999999999999999999999999999',
+          '101010101010101010101010101011010100011010100101',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa1',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa2',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa3',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa4',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa5',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa6',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa7',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa8',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa9',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa10',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa11',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa12',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa13',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa14',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa15',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa16',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa17',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa18',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa19',
+          'aaaaaaaaaaaaaaaaaaaaaaaaa20'
+        ],
+        paused: false
+      }
+    },
+    methods: {
+      addKeyFrames(y) {
+        let style = document.createElement('style')
+        style.type = 'text/css'
+        let keyFrames = `\
+            @-webkit-keyframes rowup {\
+                0% {\
+                    -webkit-transform: translate3d(0, 0, 0);\
+                    transform: translate3d(0, 0, 0);\
+                }\
+                100% {\
+                    -webkit-transform: translate3d(0, A_DYNAMIC_VALUE, 0);\
+                    transform: translate3d(0, A_DYNAMIC_VALUE, 0);\
+                }\
+            }\
+            @keyframes rowup {\
+                0% {\
+                    -webkit-transform: translate3d(0, 0, 0);\
+                    transform: translate3d(0, 0, 0);\
+                }\
+                100% {\
+                    -webkit-transform: translate3d(0, A_DYNAMIC_VALUE, 0);\
+                    transform: translate3d(0, A_DYNAMIC_VALUE, 0);\
+                }\
+            }`
+        style.innerHTML = keyFrames.replace(/A_DYNAMIC_VALUE/g, y)
+        document.getElementsByTagName('head')[0].appendChild(style)
+      },
+      handleMouseEnter() {
+        this.paused = true
+      },
+      handleMouseLeave() {
+        this.paused = false
+      }
+    },
+    mounted() {
+      let y = -this.arr.length * 20 + 'px'
+      this.arr = [...this.arr, ...this.arr.slice(0, 5)]
+      this.addKeyFrames(y)
+    }
+  }
+</script>
+<style scoped lang="scss">
+  .activity-content {
+    position: relative;
+    overflow: hidden;
+    height: 120px;
+    padding: 0 10px;
+    padding-top: 10px;
+    .item {
+      height: 20px;
+      line-height: 20px;
+      overflow: hidden;
+    }
+    .line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 10px;
+      width: 100%;
+      background: #fff;
+    }
+    &::before {
+      content: '';
+      height: 10px;
+      background-color: #fff;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+    }
+    &::after {
+      content: '';
+      height: 10px;
+      background-color: #fff;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+  }
+  //   @-webkit-keyframes rowup {
+  //     0% {
+  //       -webkit-transform: translate3d(0, 0, 0);
+  //       transform: translate3d(0, 0, 0);
+  //     }
+
+  //     100% {
+  //       -webkit-transform: translate3d(0, -600px, 0);
+  //       transform: translate3d(0, -600px, 0);
+  //     }
+  //   }
+
+  //   @keyframes rowup {
+  //     0% {
+  //       -webkit-transform: translate3d(0, 0, 0);
+  //       transform: translate3d(0, 0, 0);
+  //     }
+
+  //     100% {
+  //       -webkit-transform: translate3d(0, -600px, 0);
+  //       transform: translate3d(0, -600px, 0);
+  //     }
+  //   }
+
+  .list {
+    width: 400px;
+    border: 1px solid #999;
+    margin-top: 20px;
+    position: relative;
+    height: 120px;
+    overflow: hidden;
+  }
+
+  .list .rowup {
+    position: relative;
+    -webkit-animation: 30s rowup linear infinite normal;
+    animation: 30s rowup linear infinite normal;
+  }
+</style>
