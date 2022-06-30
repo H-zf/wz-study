@@ -1,0 +1,5 @@
+跟新包过程
+ 1. npm uninstall 旧包名版本
+ 2. npm install 新包名版本
+ 3. npm i 覆盖
+更新后的package.lock.json需要发送到远程
