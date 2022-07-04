@@ -302,7 +302,11 @@ el.remove()
 #### 87. @是别名配置~是相对的概念 例如@配置别名地址是src ~@/assets是相对于src文件下的assets文件中的
 #### 88. nuxt：https://blog.csdn.net/qq_38290251/article/details/106519985 项目中的配置比较详细
 #### 89. vue template https://vue3js.cn/vue-template-explorer/#%3Cdiv%20id%3D%22app%22%3E%7B%7B%20msg%20%7D%7D%3C%2Fdiv%3E
-
+#### 90. 背景跟着屏幕宽度变化设置
+```
+  background: url('~@/assets/image/innovate/banner.png') no-repeat center center;
+  background-size: cover;
+```
 
 
 
