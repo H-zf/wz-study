@@ -307,6 +307,8 @@ el.remove()
   background: url('~@/assets/image/innovate/banner.png') no-repeat center center;
   background-size: cover;
 ```
+#### 91. 时间格式化可以定义一个模板`{h}/{d}`然后将时间算出来一个一个替换
+
 
 
 
