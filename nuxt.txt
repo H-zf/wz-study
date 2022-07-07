@@ -32,4 +32,28 @@ _下划线文件会自动生成路由，如果不是这种格式的例如使用-
 6. 在layouts文件夹中添加error文件，然后在asyncData的回调函数中结构error来调用就可以了
 7. nuxt做静态化分页的时候需要注意，如果需要静态化，那我们点击分页的时候 我们可以window.location.href = url 然后route中我们配置接收参数:page, 页面中我们就根据page来查询数据
 如果不做分页我们就调用接口请求数据
+8. 在nuxt开发中如果引入第三方插件js报错document或者window找不到的解决办法
+  1. 在根路径的plugin文件夹中定义文件 eg..
+  // qrcode.js
+    import Vue from 'vue'
+    import QRCode from 'qrcodejs2'
+    Vue.prototype.$QRCode = (domEle, config) => {
+      const dom = new QRCode(domEle, {
+        text: '1111111111111111111',
+        width: 100,
+        height: 100,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      })
+
+      console.log('dom', dom)
+    }
+
+   2. 在nuxt.config.js plugin中修改配置
+   plugin: [{ src: '~/plugins/qrcode.js', ssr: false }]
+
+   3. 重新启动服务就可以使用该方法来生成qrcode了
+
+
 https://blog.csdn.net/qq_38290251/article/details/106519985
