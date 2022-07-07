@@ -52,6 +52,7 @@ _下划线文件会自动生成路由，如果不是这种格式的例如使用-
    2. 在nuxt.config.js plugin中修改配置
    plugin: [{ src: '~/plugins/qrcode.js', ssr: false }]
    3. 重新启动服务就可以使用该方法来生成qrcode了
+   上述问题根源在于如果在页面中引入，代码执行在服务端，肯定是找不到document，解决方法就是将该代码插件放在了客户端来执行，所以不会报错
 
 
 https://blog.csdn.net/qq_38290251/article/details/106519985
