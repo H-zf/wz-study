@@ -314,7 +314,16 @@ el.remove()
 background: rgba(24, 86, 226, 0.3);
 backdrop-filter: blur(12px);
 ```
-
+#### 94. docker容器，容器即服务。docker打包镜像开启服务步骤；
+```
+  1. 打包生成jar包
+  2. 执行dockerFile文件
+  3. 构成镜像
+  4. 打tag，推送到远程仓库
+  5. 拉去远程镜像，安装构建包，启动服务
+  一处安装，到处运行
+  和以前后台的流程
+```
 
 
 
