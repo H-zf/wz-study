@@ -325,6 +325,17 @@ backdrop-filter: blur(12px);
   docker不对外开放，可以进行端口映射来进行访问
   一处安装，到处运行
   和以前后台的流程
+  .yml语法
+  include：
+  - project: 'qzdapp/qzd-cicd-template'
+    ref: master
+    file: '/.gitlab/ci/qzd.gitlab-ci.yml'
+<!--     可以理解为 -->
+    include: {
+      project: ['qzdapp/qzd-cicd-template'],
+      ref: master,
+      file: '/.gitlab/ci/qzd.gitlab-ci.yml'
+    }
 ```
 
 
