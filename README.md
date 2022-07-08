@@ -347,6 +347,15 @@ include： {
     ref: master,
     file: '/.gitlab/ci/qzd.gitlab-ci.yml'
 }
+
+stages:
+  - build_dev
+  - test  
+  - deploy_dev
+  - build_test
+  
+<!--     可以理解为 -->
+stages: ['build_dev', 'test', 'deploy_dev', 'build_test']
 ```
 
 
