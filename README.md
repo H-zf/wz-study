@@ -356,6 +356,7 @@ stages:
   
 <!--     可以理解为 -->
 stages: ['build_dev', 'test', 'deploy_dev', 'build_test']
+${ENV}这些都是运维配置的变量
 ```
 
 
