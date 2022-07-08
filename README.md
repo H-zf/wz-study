@@ -328,14 +328,25 @@ backdrop-filter: blur(12px);
   .yml语法
   include：
   - project: 'qzdapp/qzd-cicd-template'
-    ref: master
+    ref: master,
     file: '/.gitlab/ci/qzd.gitlab-ci.yml'
-<!--     可以理解为 -->
-    include: {
-      project: ['qzdapp/qzd-cicd-template'],
+<!-- 数组    可以理解为 -->
+    include: [{
+      project: 'qzdapp/qzd-cicd-template',
       ref: master,
       file: '/.gitlab/ci/qzd.gitlab-ci.yml'
-    }
+    }]
+
+ include：
+    project: 'qzdapp/qzd-cicd-template'
+    ref: master,
+    file: '/.gitlab/ci/qzd.gitlab-ci.yml'
+<!-- 对象    可以理解为 -->
+include： {
+    project: 'qzdapp/qzd-cicd-template'
+    ref: master,
+    file: '/.gitlab/ci/qzd.gitlab-ci.yml'
+}
 ```
 
 
