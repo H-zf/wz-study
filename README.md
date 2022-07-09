@@ -364,7 +364,7 @@ stages分为很多阶段
 ![Snipaste_2022-07-09_14-08-59](https://user-images.githubusercontent.com/69661225/178094169-cfc2e5e7-05a9-44a3-a723-409f03a5f5cc.png)
 https://fizzz.blog.csdn.net/article/details/123855607?spm=1001.2014.3001.5502 // 参考来理解cicd
 ```
-#### 95. 老虎机简易实现版本，改变父元素使用trasition all 和 transform translateY 定时器得每次修改定时器时间越来越慢。数据可以复制几份，取数据得同一数据得最后一个数据得索引。
+#### 95. 老虎机简易实现版本，改变父元素使用trasition all 和 transform translateY 定时器得每次修改定时器时间越来越慢。数据可以复制几份，取数据得同一数据得最后一个数据得索引。(每次translateY得距离就是每个滚动元素得height)
 
 
 
