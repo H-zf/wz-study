@@ -360,6 +360,7 @@ ${ENV}这些都是运维配置的变量
 stages分为很多阶段
 每个stage分为有很多jobs 执行每个阶段时，job都是并行
 每个stage执行成功下一个stage才能和上一个执行完的job进行并行处理
+![Snipaste_2022-07-09_14-08-59](https://user-images.githubusercontent.com/69661225/178094169-cfc2e5e7-05a9-44a3-a723-409f03a5f5cc.png)
 
 ```
 
