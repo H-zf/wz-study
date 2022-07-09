@@ -362,7 +362,7 @@ stages分为很多阶段
 每个stage执行成功下一个stage才能和上一个执行完的job进行并行处理
 名称与执行的过程按照下图中进行参考
 ![Snipaste_2022-07-09_14-08-59](https://user-images.githubusercontent.com/69661225/178094169-cfc2e5e7-05a9-44a3-a723-409f03a5f5cc.png)
-
+https://fizzz.blog.csdn.net/article/details/123855607?spm=1001.2014.3001.5502 // 参考来理解cicd
 ```
 
 
