@@ -6,6 +6,7 @@
  * @FilePath: \qzd-website-pc\src\pages\test.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
+// 第一种
 <template>
   <div id="bg">
     <img @click="go" class="pointer" src="" alt="pointer" />
@@ -159,3 +160,135 @@
     transform-origin: 87px 130px;
   }
 </style>
+
+// 第二种
+<!--
+ * @Author: error: git config user.name && git config user.email & please set dead value or install git
+ * @Date: 2022-07-11 09:54:44
+ * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2022-07-11 16:14:32
+ * @FilePath: \qzd-website-pc\src\pages\test.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<template>
+  <div id="box">
+    <ul id="ul">
+      <li :class="[activeIndex === 0 ? 'li active' : 'li']">1</li>
+      <li :class="[activeIndex === 1 ? 'li active' : 'li']">2</li>
+      <li :class="[activeIndex === 2 ? 'li active' : 'li']">3</li>
+      <li :class="[activeIndex === 7 ? 'li active' : 'li']">8</li>
+      <li class="li1" id="chou" @click="handleClick">点击</li>
+      <li :class="[activeIndex === 3 ? 'li active' : 'li']">4</li>
+      <li :class="[activeIndex === 6 ? 'li active' : 'li']">7</li>
+      <li :class="[activeIndex === 5 ? 'li active' : 'li']">6</li>
+      <li :class="[activeIndex === 4 ? 'li active' : 'li']">5</li>
+    </ul>
+  </div>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        activeIndex: -1,
+        chose1: null,
+        status: 'start',
+        maxStart: 2
+      }
+    },
+    watch: {
+      status(val) {
+        console.log('val====', val)
+        if (val === 'end' && this.maxStart) {
+          let date = new Date().getTime()
+          this.chose1.move(4, date)
+        }
+      }
+    },
+    methods: {
+      handleClick() {
+        let date = new Date().getTime()
+        this.chose1.move(5, date)
+        console.log('this.chose1', this.chose1)
+      }
+    },
+    mounted() {
+      let that = this
+      function Chose(ele) {
+        this.status = 'start'
+        this.box = document.getElementById(ele)
+        this.li = [1, 2, 3, 4, 5, 6, 7, 8]
+        this.cli = document.getElementById('chou')
+        this.timer = null
+        this.speed = 50 // 定时器触发的速度
+        this.count = 0 // 计数变量
+        // this.cli.onclick = () => {
+        //   let date = new Date().getTime()
+        //   this.move(num, date)
+        // }
+      }
+
+      Chose.prototype.move = function(num, date) {
+        this.timer = setTimeout(() => {
+          let date2 = new Date().getTime()
+          that.activeIndex = this.count
+          this.count++
+          if (this.count > 7) {
+            this.count = 0
+          }
+          if (date2 - date > 2000) {
+            // 如果时间大于2秒, 则让速度慢下来
+            this.speed += 30
+            if (num - 1 === that.activeIndex && date2 - date > 5000) {
+              // 如果时间大于5秒, 并且转到了奖品项上, 则停止计时器
+              setTimeout(() => {
+                console.log(that.activeIndex, '=====>')
+                this.speed = 50
+                this.status = 'end'
+                that.status = 'end'
+                that.maxStart--
+              }, 0)
+              return
+            }
+          }
+          this.move(num, date)
+        }, this.speed)
+      }
+      // 这个是索引
+      this.chose1 = new Chose()
+    }
+  }
+</script>
+
+<style scoped>
+  #box {
+    width: 400px;
+    height: 400px;
+    margin: 100px auto;
+    position: relative;
+    background-color: pink;
+  }
+  #ul {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .li,
+  .li1 {
+    width: 30%;
+    height: 30%;
+    background-color: skyblue;
+    list-style: none;
+  }
+  .active {
+    background-color: #fff;
+  }
+  .active1 {
+    background-color: red;
+  }
+</style>
+
