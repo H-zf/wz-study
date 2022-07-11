@@ -292,3 +292,220 @@
   }
 </style>
 
+// 两种一起转
+<!--
+ * @Author: error: git config user.name && git config user.email & please set dead value or install git
+ * @Date: 2022-07-11 09:54:44
+ * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2022-07-11 17:03:38
+ * @FilePath: \qzd-website-pc\src\pages\test.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<template>
+  <div id="box">
+    <ul id="ul">
+      <li :class="computedStyle(0)">1</li>
+      <li :class="computedStyle(1)">2</li>
+      <li :class="computedStyle(2)">3</li>
+      <li :class="computedStyle(7)">8</li>
+      <li class="li1" id="chou" @click="handleClick">点击</li>
+      <li :class="computedStyle(3)">4</li>
+      <li :class="computedStyle(6)">7</li>
+      <li :class="computedStyle(5)">6</li>
+      <li :class="computedStyle(4)">5</li>
+    </ul>
+  </div>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        activeIndex: -1,
+        activeIndex1: -1,
+        chose1: null,
+        status: 'start',
+        maxStart: 2
+      }
+    },
+    watch: {
+      status(val) {
+        console.log('val====', val)
+        if (val === 'end' && this.maxStart) {
+          //   let date = new Date().getTime()
+          //   this.chose1.move(4, date)
+        }
+      }
+    },
+    computed: {
+      computedStyle() {
+        return (activeIndex) => {
+          if (activeIndex === this.activeIndex && activeIndex === this.activeIndex1) {
+            return 'special li'
+          }
+          if (activeIndex === this.activeIndex) {
+            return 'active li'
+          }
+          if (activeIndex === this.activeIndex1) {
+            return 'active1 li'
+          }
+          return 'li'
+        }
+      }
+    },
+    methods: {
+      handleClick() {
+        let date = new Date().getTime()
+        this.chose1.move(5, date)
+        this.chose2.move(6, date)
+      }
+    },
+    mounted() {
+      let that = this
+      function Chose() {
+        this.status = 'start'
+        // this.box = document.getElementById(ele)
+        this.li = [1, 2, 3, 4, 5, 6, 7, 8]
+        this.cli = document.getElementById('chou')
+        this.timer = null
+        this.speed = 50 // 定时器触发的速度
+        this.count = 0 // 计数变量
+        // this.cli.onclick = () => {
+        //   let date = new Date().getTime()
+        //   this.move(num, date)
+        // }
+        this.move = (num, date) => {
+          this.timer = setTimeout(() => {
+            let date2 = new Date().getTime()
+            that.activeIndex = this.count
+
+            this.count++
+            if (this.count > 7) {
+              this.count = 0
+            }
+            if (date2 - date > 2000) {
+              // 如果时间大于2秒, 则让速度慢下来
+              this.speed += 30
+              if (num - 1 === that.activeIndex && date2 - date > 5000) {
+                // 如果时间大于5秒, 并且转到了奖品项上, 则停止计时器
+                setTimeout(() => {
+                  this.speed = 50
+                  this.status = 'end'
+                  that.status = 'end'
+                  that.maxStart--
+                }, 0)
+                return
+              }
+            }
+            this.move(num, date)
+          }, this.speed)
+        }
+      }
+
+      //   Chose.prototype.move = function(num, date) {
+      //     this.timer = setTimeout(() => {
+      //       let date2 = new Date().getTime()
+      //       that.activeIndex = this.count
+      //       that.activeIndex1 = this.count
+      //       this.count++
+      //       if (this.count > 7) {
+      //         this.count = 0
+      //       }
+      //       if (date2 - date > 2000) {
+      //         // 如果时间大于2秒, 则让速度慢下来
+      //         this.speed += 30
+      //         if ((num - 1 === that.activeIndex || num - 1 === that.activeIndex1) && date2 - date > 5000) {
+      //           // 如果时间大于5秒, 并且转到了奖品项上, 则停止计时器
+      //           setTimeout(() => {
+      //             this.speed = 50
+      //             this.status = 'end'
+      //             that.status = 'end'
+      //             that.maxStart--
+      //           }, 0)
+      //           return
+      //         }
+      //       }
+      //       this.move(num, date)
+      //     }, this.speed)
+      //   }
+      function Chose1() {
+        this.status = 'start'
+        // this.box = document.getElementById(ele)
+        this.li = [1, 2, 3, 4, 5, 6, 7, 8]
+        this.cli = document.getElementById('chou')
+        this.timer = null
+        this.speed = 50 // 定时器触发的速度
+        this.count = 0 // 计数变量
+        // this.cli.onclick = () => {
+        //   let date = new Date().getTime()
+        //   this.move(num, date)
+        // }
+        this.move = (num, date) => {
+          this.timer = setTimeout(() => {
+            let date2 = new Date().getTime()
+            that.activeIndex1 = this.count
+
+            this.count++
+            if (this.count > 7) {
+              this.count = 0
+            }
+            if (date2 - date > 2000) {
+              // 如果时间大于2秒, 则让速度慢下来
+              this.speed += 30
+              if (num - 1 === that.activeIndex1 && date2 - date > 5000) {
+                // 如果时间大于5秒, 并且转到了奖品项上, 则停止计时器
+                setTimeout(() => {
+                  this.speed = 50
+                  this.status = 'end'
+                  that.status = 'end'
+                  that.maxStart--
+                }, 0)
+                return
+              }
+            }
+            this.move(num, date)
+          }, this.speed)
+        }
+      }
+      // 这个是索引
+      this.chose1 = new Chose()
+      this.chose2 = new Chose1()
+    }
+  }
+</script>
+
+<style scoped>
+  #box {
+    width: 400px;
+    height: 400px;
+    margin: 100px auto;
+    position: relative;
+    background-color: pink;
+  }
+  #ul {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .li,
+  .li1 {
+    width: 30%;
+    height: 30%;
+    background-color: skyblue;
+    list-style: none;
+  }
+  .special {
+    background-color: gold;
+  }
+  .active {
+    background-color: #fff;
+  }
+  .active1 {
+    background-color: red;
+  }
+</style>
+
