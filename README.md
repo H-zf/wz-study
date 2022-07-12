@@ -368,6 +368,8 @@ https://fizzz.blog.csdn.net/article/details/123855607?spm=1001.2014.3001.5502 //
 #### 96. 一般的前端鉴权方式，js-cookie 来进行cookie的设置，登陆成功使用cookie来进行存取值，退出登陆则清空数据。也可以在vuex中存取一份数据
 #### 97. 没有使用nuxt来进行开发时，vuex中存储的数据再刷新的时候，vuex中的数据会消失，需要重新初始化，再nuxt中则在中间件中来使用vuex来存取数据，每次进入路由都会进入到中间件，所以你刷新也会重新进入你的中间件来存值 nuxt.config.js中router配置中添加middleware属性来添加middleware文件夹下的文件
 #### 98. 邀请码之间的业务，邀请码后面会存在一个邀请码，在url上添加，在登陆的时候也会带这个参数，登陆完成之后也会带着这个参数到对应的页面中，然后再确定你是否是拉新用户
+#### 99. const ctx = require.context('./modules')引入的是modules文件夹中的所有js
+
 
 
 
