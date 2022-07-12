@@ -363,6 +363,14 @@ stages分为很多阶段
 名称与执行的过程按照下图中进行参考
 ![Snipaste_2022-07-09_14-08-59](https://user-images.githubusercontent.com/69661225/178094169-cfc2e5e7-05a9-44a3-a723-409f03a5f5cc.png)
 https://fizzz.blog.csdn.net/article/details/123855607?spm=1001.2014.3001.5502 // 参考来理解cicd
+
+when有几种状态 会在不同阶段来触发 下面是几种枚举
+on_success (默认): 当前一阶段的所有作业运行成功后，才会运行该作业
+manual： 手动触发作业
+always： 不管前面作业的状态如何，都会运行
+on_failure： 当前面有一个作业运行失败才会运行该作业
+delayed：延迟运行该作业
+never： 绝不运行该作业
 ```
 #### 95. 老虎机简易实现版本，改变父元素使用trasition all 和 transform translateY 定时器得每次修改定时器时间越来越慢。数据可以复制几份，取数据得同一数据得最后一个数据得索引。(每次translateY得距离就是每个滚动元素得height)
 #### 96. 一般的前端鉴权方式，js-cookie 来进行cookie的设置，登陆成功使用cookie来进行存取值，退出登陆则清空数据。也可以在vuex中存取一份数据
