@@ -364,6 +364,18 @@ stages分为很多阶段
 ![Snipaste_2022-07-09_14-08-59](https://user-images.githubusercontent.com/69661225/178094169-cfc2e5e7-05a9-44a3-a723-409f03a5f5cc.png)
 https://fizzz.blog.csdn.net/article/details/123855607?spm=1001.2014.3001.5502 // 参考来理解cicd
 
+关键字	必要	描述
+script	是	CI/CD 过程需要执行的shell脚本
+stage	否	一个job流程,默认test
+variables	否	定义变量,GitLab上可配置
+only	否	指定当前job适用的git refs(分支、Tag)列表
+except	否	与only相反
+tags	否	通过标签管理或匹配runner
+allow_failure	否	指定当前job是否容错，正常job失败会跳过后续job流程
+before_script	否	在当前job执行前执行的shell脚本
+after_script	否	在当前job执行后执行的shell脚本
+dependencies	否	指定依赖的job列表，默认顺序执行
+when	否	依赖的上一个job执行什么状态后执行当前job: on_success on_failure always manual 默认on_success
 when有几种状态 会在不同阶段来触发 下面是几种枚举
 on_success (默认): 当前一阶段的所有作业运行成功后，才会运行该作业
 manual： 手动触发作业
