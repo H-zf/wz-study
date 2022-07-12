@@ -383,6 +383,9 @@ always： 不管前面作业的状态如何，都会运行
 on_failure： 当前面有一个作业运行失败才会运行该作业
 delayed：延迟运行该作业
 never： 绝不运行该作业
+
+gitlab-runner就是在gitlab仓库配置了.gitlab-ci.yml文件后，需要到服务器上安装配置gitlab-runner，并监听对象仓库，当项目仓库发生提交合并操作后，服务器上的runner用户则会根据配置文件的命令进行对应的执行步骤，最终实现代码的打包-部署-运行一系列流程
+
 ```
 #### 95. 老虎机简易实现版本，改变父元素使用trasition all 和 transform translateY 定时器得每次修改定时器时间越来越慢。数据可以复制几份，取数据得同一数据得最后一个数据得索引。(每次translateY得距离就是每个滚动元素得height)
 #### 96. 一般的前端鉴权方式，js-cookie 来进行cookie的设置，登陆成功使用cookie来进行存取值，退出登陆则清空数据。也可以在vuex中存取一份数据
