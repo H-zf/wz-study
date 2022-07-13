@@ -61,4 +61,56 @@ export default function wxShare (params) {
 // 1.签名用的noncestr和timestamp必须与wx.config中的nonceStr和timestamp相同。
 // 2.签名用的url必须是调用JS接口页面的完整URL。
 // 3.出于安全考虑，开发者必须在服务器端实现签名的逻辑。
+//
+import { wxSdkInfo } from '@/api/moveActivity/index.js'
+import { isWxEv } from '@/utils/validate.js'
+
+// 加载微信sdk
+function wxSdk() {
+  const _script = document.getElementById('wz-sdk')
+  if (_script) _script.remove()
+  const wx = document.createElement('script')
+  const s = document.getElementsByTagName('script')[0]
+  wx.src = 'https://res.wx.qq.com/open/js/jweixin-1.6.0.js'
+  wx.defer = true
+  wx.id = 'wz-sdk'
+  s.parentNode.insertBefore(wx, s)
+}
+
+export default async function () {
+  if (isWxEv()) {
+    await wxSdk()
+    const { success, data } = await wxSdkInfo(window.location.href.split('#')[0])
+    if (success) {
+      const { appId, timestamp, nonceStr, signature } = data
+      if (window.wx.config) {
+        window.wx.config({
+          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId, // 必填，公众号的唯一标识
+          timestamp, // 必填，生成签名的时间戳
+          nonceStr, // 必填，生成签名的随机串
+          signature, // 必填，签名
+          jsApiList: ['updateTimelineShareData', 'updateAppMessageShareData'] // 必填，需要使用的JS接口列表
+        })
+      }
+
+      window.wx.ready(function () {
+        window.wx.updateTimelineShareData({
+          title: '企知道·会员日-分享2亿创新金',
+          link: 'https://appweb.qizhidao.com/activity/moveActivity',
+          imgUrl: `https://wz-website-oss.chinaweizheng.com/file-resource/prod/qzd-activity/21.jpg`
+        })
+        window.wx.updateAppMessageShareData({
+          title: '企知道·会员日-分享2亿创新金',
+          desc: '认证可获得分享资格，最高可得18888',
+          link: 'https://appweb.qizhidao.com/activity/moveActivity',
+          imgUrl:  `https://wz-website-oss.chinaweizheng.com/file-resource/prod/qzd-activity/21.jpg`
+        })
+      })
+      window.wx.error(function (res) {
+        console.error('error:', res)
+      })
+    }
+  }
+}
 
