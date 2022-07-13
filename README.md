@@ -409,7 +409,7 @@ B打开页面之后到处跳转打开了很多页签，但是不可能每个链�
 ```
 #### 99. const ctx = require.context('./modules')引入的是modules文件夹中的所有js
 #### 100. 登陆带参数（query），点击登陆带参数，登陆成功取参数，跳转
-#### 101. 移动端拉起相应应用 https://blog.csdn.net/qq_41960279/article/details/124817190 使用scheme来进行跳转，ios中直接跳转链接，安卓要使用scheme来跳转，跳转的方式：window.top.location.href = 链接 
+#### 101. 移动端拉起相应应用 https://blog.csdn.net/qq_41960279/article/details/124817190 使用scheme来进行跳转，ios中直接跳转链接，安卓要使用scheme来跳转，跳转的方式：window.top.location.href = 链接 拉去不成功就去应用市场是需要配置应用市场的url的，appstore是ios的把 应用市场是安卓的把
 
 
 
