@@ -409,7 +409,7 @@ B打开页面之后到处跳转打开了很多页签，但是不可能每个链�
 ```
 #### 99. const ctx = require.context('./modules')引入的是modules文件夹中的所有js
 #### 100. 登陆带参数（query），点击登陆带参数，登陆成功取参数，跳转
-
+#### 101. 移动端拉起相应应用https://blog.csdn.net/qq_41960279/article/details/124817190 使用scheme来进行跳转，ios中直接跳转链接，安卓要使用scheme来跳转
 
 
 
