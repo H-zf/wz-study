@@ -25,6 +25,7 @@ eg: git branch release/v1.73.0(新的分支名) v1.72.0(远程tag名)
 
 git commit后没有提交到远程回退 git reset --soft sdjadsagdshagdhadwqwd 在查看git log日志时，最新的commit会在最上面 需要回退到之前的commit就可以了
 
+git切换分支，远程有分支则checkout直接切换  远程没有则git branch git checkout
 
 
 
