@@ -417,29 +417,29 @@ B打开页面之后到处跳转打开了很多页签，但是不可能每个链�
 #### 106. 长轮询接口
 ```
     // 长轮询接口请求
-    async handleLoopFetch() {
-      // 被async定义的函数会被定义为一个promise return出来的结果会被当做成一个resolve的结果值
-      let pageSize = 10
+    async handleLoopFetch(key) {
+    // 被async定义的函数会被定义为一个promise return出来的结果会被当做成一个resolve的结果值
       const loop = () => {
-        pageSize--
-        return new Promise(async (rs, rj) => {
-          let params = {
-            pageSize: pageSize,
-            current: 1
+        return new Promise((reslove, rj) => {
+          let rs = reslove
+          const next = async () => {
+            let params = {
+              key
+            }
+            const {
+              data: { data }
+            } = await postLoopResult(params)
+            const { isSuccess = false } = data
+            if (!isSuccess) {
+              next()
+            } else {
+              rs(data)
+            }
           }
-          const {
-            data: { data }
-          } = await postMarketingList(params)
-          const { records = [] } = data
-          if (records.length) {
-            loop()
-          } else {
-            rs('8888888888888888888888')
-          }
+          next()
         })
       }
-      const res = await loop()
-      return res
+      return await loop()
     },
     res 这里就可以直接使用return await loop() 那const res = await handleLoopFetch() 那res就是loop函数中的rs返回的数据
 ```
