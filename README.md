@@ -441,6 +441,7 @@ B打开页面之后到处跳转打开了很多页签，但是不可能每个链�
       }
       return await loop()
     },
+    在封装loop函数的时候，需要保证里面只有一个promise实例 不然循环就生成一个就会拿不到结果
     res 这里就可以直接使用return await loop() 那const res = await handleLoopFetch() 那res就是loop函数中的rs返回的数据
 ```
 
