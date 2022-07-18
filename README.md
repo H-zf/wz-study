@@ -414,8 +414,34 @@ B打开页面之后到处跳转打开了很多页签，但是不可能每个链�
 #### 103. 网络不好的情况，可以在请求前定义好false，trycatch报错则可以定义为网络不好
 #### 104. table表格手写，还自带列固定的布局 利用左右布局 右边使用padding-left将左侧空留出来 左边使用定位。数据是竖着渲染的结构
 #### 105. package.json scripts配置文件中的数据都是使用的根路径下的文件 例如build/webpack.dev.js 就是根路径下build文件夹下的webpack.dev.js
-
-
+#### 106. 长轮询接口
+```
+    // 长轮询接口请求
+    async handleLoopFetch() {
+      // 被async定义的函数会被定义为一个promise return出来的结果会被当做成一个resolve的结果值
+      let pageSize = 10
+      const loop = () => {
+        pageSize--
+        return new Promise(async (rs, rj) => {
+          let params = {
+            pageSize: pageSize,
+            current: 1
+          }
+          const {
+            data: { data }
+          } = await postMarketingList(params)
+          const { records = [] } = data
+          if (records.length) {
+            loop()
+          } else {
+            rs('8888888888888888888888')
+          }
+        })
+      }
+      const res = await loop()
+      return res
+    },
+```
 
 
 
