@@ -441,6 +441,7 @@ B打开页面之后到处跳转打开了很多页签，但是不可能每个链�
       const res = await loop()
       return res
     },
+    res 这里就可以直接使用return await loop() 那const res = await handleLoopFetch() 那res就是loop函数中的rs返回的数据
 ```
 
 
