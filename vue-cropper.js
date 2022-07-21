@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-07-04 17:35:09
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-07-20 20:46:09
+ * @LastEditTime: 2022-07-21 14:44:27
  * @FilePath: \qzd-website-pc\src\components\views\innovate\NoPermission.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -39,16 +39,6 @@
           @imgLoad="imgLoad"
         >
         </vue-cropper>
-        <!-- <div>
-          <label class="btn" for="uploads">选择头像</label>
-          <input
-            type="file"
-            id="uploads"
-            style="position:absolute; clip:rect(0 0 0 0);"
-            accept="image/png, image/jpeg, image/jpg"
-            @change="selectImg($event)"
-          />
-        </div> -->
         <label class="select-upload" for="uploads" v-if="!toggleImgShow">
           <div>
             <div class="upload-icon"></div>
@@ -60,16 +50,37 @@
         <input
           type="file"
           id="uploads"
+          ref="uploads"
           style="position:absolute; clip:rect(0 0 0 0);"
           accept="image/png, image/jpeg, image/jpg"
           @change="selectImg($event)"
         />
-        <div class="preview-img"></div>
+        <div v-if="previews" class="show-preview">
+          <div class="preview">
+            <img :src="previews.url" :style="previews.img" />
+          </div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <div class="reset-btn" v-if="toggleImgShow" @click="handleUploadAgain">重新上传</div>
+        <div class="operate-btn" v-if="toggleImgShow">
+          <i @click="rotateLeft" class="el-icon-refresh-right" /><i
+            class="el-icon-remove-outline"
+            @click="changeScale(-1)"
+          ></i
+          ><i class="el-icon-circle-plus-outline" @click="changeScale(1)"></i>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="cancel" @click="handleCancel">取消</div>
+        <div class="submit" @click="handleSubmitCropBlob">确定</div>
       </div>
     </div>
   </div>
 </template>
 <script>
+  import { postUploadFiles } from '@/api/mine/personInfo'
   export default {
     props: {
       value: {
@@ -85,25 +96,24 @@
           img: '', // 裁剪图片的地址
           outputSize: 1, // 裁剪生成图片的质量(可选0.1 - 1)
           outputType: 'jpeg', // 裁剪生成图片的格式（jpeg || png || webp）
-          info: true, // 图片大小信息
-          canScale: false, // 图片是否允许滚轮缩放
+          info: false, // 图片大小信息
+          canScale: true, // 图片是否允许滚轮缩放
           autoCrop: true, // 是否默认生成截图框
-          autoCropWidth: 200, // 默认生成截图框宽度
-          autoCropHeight: 200, // 默认生成截图框高度
+          autoCropWidth: 98, // 默认生成截图框宽度
+          autoCropHeight: 98, // 默认生成截图框高度
           fixed: true, // 是否开启截图框宽高固定比例
-          // fixedNumber: [1.53, 1], // 截图框的宽高比例
           fixedNumber: [1, 1], // 截图框的宽高比例
           full: false, // false按原比例裁切图片，不失真
-          fixedBox: false, // 固定截图框大小，不允许改变
+          fixedBox: true, // 固定截图框大小，不允许改变
           canMove: true, // 上传图片是否可以移动
           canMoveBox: false, // 截图框能否拖动
           original: false, // 上传图片按照原始比例渲染
-          centerBox: true, // 截图框是否被限制在图片里面
+          centerBox: false, // 截图框是否被限制在图片里面
           height: true, // 是否按照设备的dpr 输出等比例图片
           infoTrue: false, // true为展示真实输出图片宽高，false展示看到的截图框宽高
-          // maxImgSize: 3000,    // 限制图片最大宽度和高度
-          // enlarge: 1,          // 图片根据截图框输出比例倍数
-          mode: 'auto 200px' // 图片默认渲染方式
+          maxImgSize: 3000, // 限制图片最大宽度和高度
+          enlarge: 1, // 图片根据截图框输出比例倍数
+          mode: 'auto 240px' // 图片默认渲染方式
 
           //   img: "",
           // outputSize: 1, // 剪切后的图片质量（0.1-1）
@@ -132,14 +142,45 @@
           return this.value
         },
         set() {
+          this.handleResetImg()
           this.$emit('input', false)
         }
       }
     },
     methods: {
+      // 确认剪裁并上传图片
+      handleSubmitCropBlob() {
+        let formData = new FormData()
+        this.$refs.cropper.getCropBlob((data) => {
+          formData.append('avatar', data, '.jpeg')
+          this.$axios(postUploadFiles(formData))
+        })
+      },
+      handleCancel() {
+        this.showPop = false
+      },
+      // 图片缩放
+      changeScale(num) {
+        num = num || 1
+        this.$refs.cropper.changeScale(num)
+      },
+      // 向左旋转
+      rotateLeft() {
+        this.$refs.cropper.rotateLeft()
+      },
+      // 向右旋转
+      rotateRight() {
+        this.$refs.cropper.rotateRight()
+      },
+      handleUploadAgain() {
+        this.$refs.uploads.click()
+      },
+      handleResetImg() {
+        this.toggleImgShow = false
+        this.previews = null
+      },
       // 选择图片
       selectImg(e) {
-        this.toggleImgShow = true
         let file = e.target.files[0]
         if (!/.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
           this.$message({
@@ -148,10 +189,19 @@
           })
           return false
         }
+        const fileMaxSize = 1024 * 1024 * 2
+        if (file.size >= fileMaxSize) {
+          this.$message({
+            message: '图片大小不能超过2M',
+            type: 'error'
+          })
+          return false
+        }
         // 转化为blob
         let reader = new FileReader()
         reader.onload = (e) => {
           let data
+          this.toggleImgShow = true
           if (typeof e.target.result === 'object') {
             data = window.URL.createObjectURL(new Blob([e.target.result]))
           } else {
@@ -216,7 +266,7 @@
       top: 188px;
       transform: translateX(-50%);
       width: 406px;
-      height: 433px;
+      height: 441px;
       background-color: #fff;
       border-radius: 8px;
       .title {
@@ -236,8 +286,9 @@
       }
       .content {
         width: 100%;
-        height: calc(100% - 126px);
+        height: 272px;
         padding: 24px;
+        padding-bottom: 8px;
         display: flex;
         .select-upload {
           display: flex;
@@ -267,11 +318,65 @@
             line-height: 20px;
           }
         }
-        .preview-img {
-          width: 98px;
-          height: 98px;
-          margin-left: 20px;
-          border-radius: 8px;
+        .show-preview {
+          flex: 1;
+          -webkit-flex: 1;
+          display: flex;
+          display: -webkit-flex;
+          justify-content: center;
+          .preview {
+            overflow: hidden;
+            background: #cccccc;
+            border-radius: 8px;
+            width: 98px;
+            height: 98px;
+          }
+        }
+      }
+      .btn-row {
+        display: flex;
+        justify-content: space-between;
+        width: 264px;
+        height: 20px;
+        padding-left: 24px;
+        margin-bottom: 24px;
+        .reset-btn {
+          font-size: 14px;
+          color: #3981f4;
+          cursor: pointer;
+        }
+        .operate-btn {
+          i {
+            margin-left: 8px;
+            cursor: pointer;
+          }
+        }
+      }
+      .footer {
+        height: 68px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .cancel,
+        .submit {
+          width: 60px;
+          height: 36px;
+          font-size: 14px;
+          text-align: center;
+          border: 1px solid #dae4ec;
+          border-radius: 4px;
+          line-height: 34px;
+          cursor: pointer;
+        }
+        .cancel {
+          margin-right: 16px;
+          color: #666;
+          background: #ffffff;
+        }
+        .submit {
+          margin-right: 24px;
+          color: #fff;
+          background: #3981f4;
         }
       }
     }
@@ -288,21 +393,6 @@
   .cropper-box {
     flex: 1;
     width: 100%;
-  }
-
-  .preview {
-    overflow: hidden;
-    border: 1px solid #67c23a;
-    background: #cccccc;
-    border-radius: 50%;
-  }
-
-  .show-preview {
-    flex: 1;
-    -webkit-flex: 1;
-    display: flex;
-    display: -webkit-flex;
-    justify-content: center;
   }
 
   .cropper-content {
@@ -331,5 +421,58 @@
     display: flex;
     display: -webkit-flex;
     justify-content: flex-end;
+  }
+
+  /deep/ .cropper-view-box {
+    outline: 1px solid #fff;
+    outline-color: #fff;
+  }
+  /deep/ .cropper-crop-box {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      top: -2px;
+      width: 16px;
+      height: 16px;
+      border-left: 2px solid #fff;
+      border-top: 2px solid #fff;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      right: -2px;
+      top: -2px;
+      width: 16px;
+      height: 16px;
+      border-right: 2px solid #fff;
+      border-top: 2px solid #fff;
+    }
+  }
+  /deep/ .cropper-view-box {
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      bottom: -2px;
+      width: 16px;
+      height: 16px;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      right: -2px;
+      bottom: -2px;
+      width: 16px;
+      height: 16px;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+    }
+  }
+  /deep/ .cropper-modal {
+    background: rgba(0, 0, 0, 0.56);
   }
 </style>
