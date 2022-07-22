@@ -6,11 +6,12 @@ import Vue from 'vue'
 function microStore(nuxt) {
   
   // 父应用的初始state
-  const storeStauts = nuxt.store.state.micro
-  const initialState = Vue.observable(storeStauts)
+  const storeStauts = nuxt.store.state.micro // 这是主容器中的一个数据
+  const initialState = Vue.observable(storeStauts) // 做一个监听
 
   const actions = initGlobalState(initialState)
 
+  // 监听修改主容器中的数据做修改的操作 一个同步到vuex中 一个是同步actions中
   actions.onGlobalStateChange((newState, prev) => {
     // state: 变更后的状态; prev 变更前的状态
     // for (const key in newState) {
@@ -19,7 +20,7 @@ function microStore(nuxt) {
     nuxt.store.commit('micro/SET_DATA', newState)
   })
 
-  // 定义一个获取state的方法下发到子应用
+  // 定义一个获取state的方法（函数）下发到子应用
   actions.getGlobalState = (key) => {
     // 有key，表示取globalState下的某个子级对象
     // 无key，表示取全部
@@ -56,7 +57,7 @@ function appsFun(prop) {
     }
   })
 }
-
+ // 子容器修改数据会被监听到，然后下发到子容器，通过方法来进行数据的获取
 export default appsFun
 
 
