@@ -66,4 +66,5 @@ export default appsFun
 子服务为一个路由链接
 在注册的时候可以在子容器中添加cookie，和vuex中的方法以及数据
 可以共享父容器的store
+微服务好处就是一个地方用的可以多个项目合用
 https://www.jianshu.com/p/36f415bd2cbe
