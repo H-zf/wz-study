@@ -31,3 +31,4 @@ export default appsFun
 注册子服务，在父盒子中定义容器来放子服务
 子服务为一个路由链接
 在注册的时候可以在子容器中添加cookie，和vuex中的方法以及数据
+https://www.jianshu.com/p/36f415bd2cbe
