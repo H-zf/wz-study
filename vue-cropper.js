@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-07-04 17:35:09
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-07-21 14:44:27
+ * @LastEditTime: 2022-07-23 15:32:13
  * @FilePath: \qzd-website-pc\src\components\views\innovate\NoPermission.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -41,7 +41,9 @@
         </vue-cropper>
         <label class="select-upload" for="uploads" v-if="!toggleImgShow">
           <div>
-            <div class="upload-icon"></div>
+            <div class="upload-icon">
+              <UploadIcon />
+            </div>
             <div class="upload-title">添加图片</div>
             <div class="desc">仅支持jpg/png/jpeg</div>
             <div class="desc">大小不超过2M</div>
@@ -55,10 +57,17 @@
           accept="image/png, image/jpeg, image/jpg"
           @change="selectImg($event)"
         />
-        <div v-if="previews" class="show-preview">
+        <div v-if="toggleImgShow && previews" class="show-preview">
           <div class="preview">
             <img :src="previews.url" :style="previews.img" />
           </div>
+          <div class="preview-text">头像预览</div>
+        </div>
+        <div v-if="!toggleImgShow" class="show-preview">
+          <div class="preview">
+            <img :src="previewAvator" :style="{ height: '98px', width: '98px' }" />
+          </div>
+          <div class="preview-text">头像预览</div>
         </div>
       </div>
       <div class="btn-row">
@@ -74,19 +83,30 @@
 
       <div class="footer">
         <div class="cancel" @click="handleCancel">取消</div>
-        <div class="submit" @click="handleSubmitCropBlob">确定</div>
+        <div class="submit" @click="handleSubmitCropBlob">
+          确定
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import { postUploadFiles } from '@/api/mine/personInfo'
+  import { aliyunFilesUp } from '~/utils/common'
+  import { postSubmitUserInfo } from '@/api/mine/personInfo'
+  import UploadIcon from './Upload.vue'
   export default {
     props: {
       value: {
         type: Boolean,
         default: false
+      },
+      previewAvator: {
+        type: String,
+        default: ''
       }
+    },
+    components: {
+      UploadIcon
     },
     data() {
       return {
@@ -108,7 +128,7 @@
           canMove: true, // 上传图片是否可以移动
           canMoveBox: false, // 截图框能否拖动
           original: false, // 上传图片按照原始比例渲染
-          centerBox: false, // 截图框是否被限制在图片里面
+          centerBox: true, // 截图框是否被限制在图片里面
           height: true, // 是否按照设备的dpr 输出等比例图片
           infoTrue: false, // true为展示真实输出图片宽高，false展示看到的截图框宽高
           maxImgSize: 3000, // 限制图片最大宽度和高度
@@ -148,12 +168,31 @@
       }
     },
     methods: {
+      async fetchSubmitUserInfo(fileUrl) {
+        let params = {
+          headPortrait: fileUrl
+        }
+        await this.$axios(postSubmitUserInfo(params))
+      },
+      handleBlobToFile(blob) {
+        return new window.File([blob], `${new Date().getTime()}`, { type: blob.type })
+      },
       // 确认剪裁并上传图片
       handleSubmitCropBlob() {
-        let formData = new FormData()
-        this.$refs.cropper.getCropBlob((data) => {
-          formData.append('avatar', data, '.jpeg')
-          this.$axios(postUploadFiles(formData))
+        if (!this.toggleImgShow || !this.previews) {
+          this.handleCancel()
+          this.$emit('handleSubmit', {}, 2)
+          return
+        }
+        this.$refs.cropper.getCropBlob(async (imgres) => {
+          const fileObject = this.handleBlobToFile(imgres)
+          const {
+            data: { downloadLocation }
+          } = await aliyunFilesUp(this.$axios, fileObject)
+          await this.fetchSubmitUserInfo(downloadLocation)
+          this.$emit('handleSubmit', { fileUrl: downloadLocation }, 1)
+          this.handleCancel()
+          this.$message.success('头像修改完成')
         })
       },
       handleCancel() {
@@ -166,7 +205,8 @@
       },
       // 向左旋转
       rotateLeft() {
-        this.$refs.cropper.rotateLeft()
+        this.$refs.cropper.rotate = this.$refs.cropper.rotate + 45 / 90
+        // this.$refs.cropper.rotateLeft()
       },
       // 向右旋转
       rotateRight() {
@@ -301,9 +341,6 @@
           text-align: center;
           cursor: pointer;
           .upload-icon {
-            width: 32px;
-            height: 32px;
-            margin-bottom: 4px;
           }
           .upload-title {
             margin-bottom: 16px;
@@ -319,17 +356,24 @@
           }
         }
         .show-preview {
-          flex: 1;
-          -webkit-flex: 1;
+          position: relative;
           display: flex;
           display: -webkit-flex;
-          justify-content: center;
+          margin-left: 20px;
           .preview {
             overflow: hidden;
             background: #cccccc;
             border-radius: 8px;
             width: 98px;
             height: 98px;
+          }
+          .preview-text {
+            position: absolute;
+            top: 105px;
+            left: 21px;
+            font-size: 14px;
+            color: #b3b3b3;
+            user-select: none;
           }
         }
       }
@@ -357,6 +401,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        border: 1px solid rgba(0, 0, 0, 0.06);
         .cancel,
         .submit {
           width: 60px;
@@ -367,6 +412,7 @@
           border-radius: 4px;
           line-height: 34px;
           cursor: pointer;
+          user-select: none;
         }
         .cancel {
           margin-right: 16px;
@@ -377,6 +423,15 @@
           margin-right: 24px;
           color: #fff;
           background: #3981f4;
+          &:hover {
+            background: #1864dc;
+          }
+          &.disabled {
+            color: #fff;
+            background-color: #a0cfff;
+            border-color: #a0cfff;
+            cursor: not-allowed;
+          }
         }
       }
     }
