@@ -81,3 +81,20 @@ export default {
   }
 }
 </style>
+
+// let num = '' + inputStr
+  num = num
+    .replace(/[^\d.]/g, '')
+    .replace(/\.{2,}/g, '.')
+    .replace(/^(1|2|3|4)\./, '$1') // 只能输入大于5的数字 小于的话就不让输入小数点
+    .replace('.', '$#$')
+    .replace(/\./g, '')
+    .replace('$#$', '.')
+    .replace(/^(\-)*(\d+)\.(\d\d\d).*$/, '$1$2.$3')
+
+  if (num.indexOf('.') < 0 && num !== '') {
+    num = parseFloat(num)
+  }
+  if (num >= 99) {
+    num = 99
+  }
