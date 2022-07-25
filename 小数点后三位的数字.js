@@ -84,6 +84,7 @@ export default {
 
 // let num = '' + inputStr
   num = num
+    .replace(/^[0]/, '')
     .replace(/[^\d.]/g, '')
     .replace(/\.{2,}/g, '.')
     .replace(/^(1|2|3|4)\./, '$1') // 只能输入大于5的数字 小于的话就不让输入小数点
