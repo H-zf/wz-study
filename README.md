@@ -447,6 +447,25 @@ B打开页面之后到处跳转打开了很多页签，但是不可能每个链�
 #### 107. app站内分享是自己分享，站外是不能控制的，只能初始化数据布局的卡片是初始化数据就确定了，默认是浏览器的分享和微信分享的卡片
 #### 108. 页面中需要用户来进行登陆，可以在路由中来判断用户是否登陆 没有登陆则需要进行登陆
 #### 109. 返回使用go(-1) 替换路由使用replace
+#### 110. element-ui是支持v-model，子组件使用computed来接收，然后修改值
+```
+父组件
+<CompanyScore v-model="form.companyScore" prop="companyScore" />
+子组件
+<el-input
+  v-model="companyScore"
+  @input="handleInput"
+  placeholder="请输入规模分"
+></el-input>
+companyScore: {
+  get() {
+    return this.value
+  },
+  set(value) {
+    this.$emit('input', value)
+  }
+}
+```
 
 
 
