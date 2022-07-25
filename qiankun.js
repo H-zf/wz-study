@@ -67,4 +67,5 @@ export default appsFun
 在注册的时候可以在子容器中添加cookie，和vuex中的方法以及数据
 可以共享父容器的store
 微服务好处就是一个地方用的可以多个项目合用
+父容器与子容器路由 指定子容器的根路由 eg：/vue 则在父容器中/vue/demo 则是访问子容器的demo路由 如果子容器需要在父容器中兼容父容器的布局，则在父容器中需要/vue?query=ddd#/demo
 https://www.jianshu.com/p/36f415bd2cbe
